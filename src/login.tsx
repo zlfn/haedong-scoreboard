@@ -8,19 +8,20 @@ import {backEndUrl} from "./index";
 import {inspect} from "util";
 import ReactModal from "react-modal";
 import ReactLoading from "react-loading";
+import Cookies from "universal-cookie";
 
 ReactModal.setAppElement('#root');
 
 type LoginProps = {
     loggedIn: Boolean;
-    setToken: (token: string)=>void;
+    login: (session: string)=>void;
 }
 
 type StudentInfo = {
     name: string;
     studentNum: string;
 }
-export const Login: React.FC<LoginProps> = ({loggedIn, setToken}) => {
+export const Login: React.FC<LoginProps> = ({loggedIn, login}) => {
     const [failModalOpened, setFailModalOpened] = useState(false)
     const [loginModalOpened, setLoginModalOpened] = useState(false)
     const [loadingModalOpened, setLoadingModalOpened] = useState(false)
@@ -33,6 +34,12 @@ export const Login: React.FC<LoginProps> = ({loggedIn, setToken}) => {
         return <LoginButton/>
     }
 
+    function registerFailHandle() {
+        setLoginModalOpened(false)
+        setFailModalOpened(true)
+    }
+
+    console.log(authCode)
     //code 쿼리 존재하면 로그인 시도
     useEffect(() => {
         const URLSearch = new URLSearchParams(window.location.search)
@@ -41,24 +48,36 @@ export const Login: React.FC<LoginProps> = ({loggedIn, setToken}) => {
             const auth = URLSearch.get("code")
             // @ts-ignore
             setAuthCode(auth)
-            console.log(auth)
+
             window.history.replaceState({}, "", document.location.href.split("?")[0]);
-            axios({
-                url: backEndUrl + "/login",
-                method: 'get',
-                data: {
-                    code: auth
-                }
-            }).then(response => {
-                    console.log(response.data.data)
-                    //TODO: 로그인 프로세스 구성
+            setTimeout(()=>
+            {axios.get(backEndUrl + "/login?code=" + auth)
+                .then(response => {
+                    const res = response.data
+                    if(res.success) {
+                        login(res.session)
+                        return
+                    } else {
+                        if(res.error === 1) {
+                            setLoadingModalOpened(false)
+                            setFailModalOpened(true)
+                            return
+                        }
+                        if(res.error === 2) {
+                            new Cookies().set("session_id", res.session)
+                            setLoadingModalOpened(false)
+                            setLoginModalOpened(true)
+                            return
+                        }
+                    }
                 })
                 .catch(error => {
                     setLoadingModalOpened(false)
                     setFailModalOpened(true)
                 })
+        },1000)
         }
-    }, [])
+    }, [login])
 
     return <>
         <Modal
@@ -66,8 +85,10 @@ export const Login: React.FC<LoginProps> = ({loggedIn, setToken}) => {
             overlayClassName="Modal_Overlay"
             className="Modal_Content">
             <LoginModal
+                login={login}
+                authCode={authCode}
                 closeModal={()=>setLoginModalOpened(false)}
-                setStudentData={()=>{}}
+                failCallback={registerFailHandle}
             />
         </Modal>
         <Modal
@@ -119,14 +140,68 @@ type ModalProps = {
 }
 
 interface LoginModalProps extends ModalProps {
-    setStudentData: ()=>void
+    authCode: string
+    login: (session: string)=>void
+    failCallback: ()=>void
 }
 
-const LoginModal: React.FC<LoginModalProps> = ({closeModal}) => {
+const LoginModal: React.FC<LoginModalProps> = ({authCode, login, closeModal, failCallback}) => {
+    const [loadingModalOpened, setLoadingModalOpened] = useState(false)
+    const [name, setName] = useState("")
+    const [number, setNumber] = useState("")
+    function register() {
+        setLoadingModalOpened(true)
+        setTimeout(() => {axios.post(backEndUrl + "/login/register", {
+                name: name,
+                student_id: number
+            }, {withCredentials:true})
+                .then(response => {
+                    if (response.data.success) {
+                        setTimeout(()=> {axios.get(backEndUrl + "/login?code=" + authCode)
+                                .then(response => {
+                                    if (response.data.success) {
+                                        login(response.data.session)
+                                        closeModal()
+                                    } else {
+                                        failCallback()
+                                    }
+                                })
+                                .catch(error => {
+                                    failCallback()
+                                })
+                        },1000)
+                    } else {
+                        failCallback()
+                    }
+                })
+                .catch(error => {
+                    failCallback()
+                    return
+                })
+        }, 1000)
+    }
+
+    const nameChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+        setName(e.target.value)
+    }
+    const numberChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+        setNumber(e.target.value)
+    }
+
     return (
         <>
             <h3>처음 로그인 하셨군요! 이름과 학번을 알려주시곘어요?</h3>
+            <input onChange={nameChange} maxLength={3} placeholder="이름"/>
+            <input onChange={numberChange} maxLength={4} placeholder="학번"/>
+            <br/><br/>
+            <button onClick={register}>제출하기</button>
             <button onClick={closeModal}>로그인 취소</button>
+            <Modal
+                isOpen={loadingModalOpened}
+                overlayClassName="Modal_Alpha_Overlay"
+                className="Modal_Loading">
+                <LoadingModal/>
+            </Modal>
         </>
 ) }
 

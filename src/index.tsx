@@ -1,18 +1,17 @@
 import React, {useState} from 'react';
 import ReactDOM from 'react-dom/client';
-import Modal from 'react-modal';
 import './resources/index.css';
 import "./resources/modal.css"
 import "./resources/custom.css"
 import {Login} from './login';
+import Cookies from 'universal-cookie';
 
-export const backEndUrl = "https://hd.hegelty.space";
+export const backEndUrl = "http://hd.hegelty.space";
 export const App: React.FC = () => {
     const [loggedIn, setLogin] = useState(false)
-    const [token, setToken] = useState("")
-    function login(token:string):void {
+    function login(session:string):void {
         setLogin(true)
-        setToken(token)
+        new Cookies().set("session_id", session)
     }
 
     return(
@@ -21,7 +20,7 @@ export const App: React.FC = () => {
                 <img src="/logo.png" alt="Logo" id="logo"/>
                 <Login
                     loggedIn={loggedIn}
-                    setToken={login}
+                    login={login}
                 />
             </div>
                 <Temp/>
@@ -36,6 +35,7 @@ const root = ReactDOM.createRoot(
 root.render(<App/>);
 
 
+//모양 만들기용 임시 컴포넌트. 개발하면서 조각조각 쪼갤거임.
 const Temp: React.FC = () => {
     return (
         <>
