@@ -1,0 +1,25 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+
+.modal-content {
+    position: absolute;
+    z-index: 101;
+    top: 30%;
+    left: 30%;
+    right: 30%;
+    bottom: 30%;
+    border: 1px solid #ccc;
+    background: #fff;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 10px;
+    outline: none;
+    padding: 20px;
+}

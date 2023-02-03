@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
-import Modal from "react-modal";
+import Modal, {Props} from "react-modal";
 import * as url from "url";
 import * as queryString from "query-string";
 import {useSearchParams} from 'react-router-dom';
+import "./resources/modal.css"
 import axios from 'axios'
 import {backEndUrl} from "./index";
 
@@ -17,6 +18,8 @@ type StudentInfo = {
 }
 export const Login: React.FC<LoginProps> = ({loggedIn, setToken}) => {
     const [failModalOpened, setFailModalOpened] = useState(false)
+    const [loginModalOpened, setLoginModalOpened] = useState(false)
+    const [authCode, setAuthCode] = useState("")
     function Button() {
         if(loggedIn) {
             return <ProfileHolder/>
@@ -28,8 +31,7 @@ export const Login: React.FC<LoginProps> = ({loggedIn, setToken}) => {
     useEffect(() => {
         const URLSearch = new URLSearchParams(window.location.search)
         if(URLSearch.has("code")) {
-            const authCode = URLSearch.get("code")
-            console.log(authCode)
+            setAuthCode(URLSearch.get("code")!)
             axios.get(backEndUrl + "/login?code=" + authCode)
                 .then(response => {
                     console.log(response.data.data)
@@ -44,19 +46,22 @@ export const Login: React.FC<LoginProps> = ({loggedIn, setToken}) => {
     },[])
 
     return <>
-        <LoginModal
-            setStudentData={()=>{}}
-            isOpen={false}
-            closeModal={()=>{}}
-        />
-        <LoginFailModal
-            isOpen={failModalOpened}
-            closeModal={()=> setFailModalOpened(false)}
-        />
+        <Modal isOpen={loginModalOpened} style={ModalStyle as Modal.Styles}>
+            <LoginModal
+                closeModal={()=>setLoginModalOpened(false)}
+                setStudentData={()=>{}}
+            />
+        </Modal>
+        <Modal isOpen={failModalOpened} style={ModalStyle as Modal.Styles}>
+            <LoginFailModal
+                closeModal={()=>setFailModalOpened(false)}
+            />
+        </Modal>
         <Button/>
     </>
-
 }
+
+
 
 const LoginButton: React.FC = () => {
     const oauthEndPoint = "https://gbs.wiki/oauth2/login?"
@@ -80,38 +85,32 @@ const ProfileHolder: React.FC = () => {
 }
 
 type ModalProps = {
-    isOpen:boolean
     closeModal: ()=>void
 }
 
 interface LoginModalProps extends ModalProps {
-    setStudentData: (si: StudentInfo)=>void
+    setStudentData: ()=>void
 }
 
-const LoginModal: React.FC<LoginModalProps> = ({isOpen, closeModal}) => {
+const LoginModal: React.FC<LoginModalProps> = ({closeModal}) => {
     return (
-        <Modal isOpen={isOpen} style={ModalStyle as ReactModal.Styles}>
-            <h3>처음 로그인 하셨군요! 이름과 학번을 알려주시겠어요?</h3>
-            이름<br/>
-            <input type="text"/><br/>
-            학번<br/>
-            <input type="text"/><br/>
-            <br/><br/><br/>
-            <button>확인</button>
-            <span>              </span>
+        <>
+            <h3>처음 로그인 하셨군요! 이름과 학번을 알려주시곘어요?</h3>
             <button onClick={closeModal}>로그인 취소</button>
-        </Modal>
+        </>
+)
+}
+
+
+const LoginFailModal: React.FC<ModalProps> = ({closeModal}) => {
+    return (
+        <>
+            <h3>로그인에 실패했습니다.</h3>
+            <button onClick={closeModal}>닫기</button>
+        </>
     )
 }
 
-const LoginFailModal: React.FC<ModalProps> = ({isOpen, closeModal}) => {
-    return (
-        <Modal isOpen={isOpen} style={ModalStyle as ReactModal.Styles}>
-               <h3>로그인에 실패했습니다.</h3>
-                <button onClick={closeModal}>닫기</button>
-        </Modal>
-    )
-}
 
 const ModalStyle = {
     overlay: {
