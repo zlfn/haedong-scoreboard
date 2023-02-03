@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import ReactDOM from 'react-dom/client';
 import Modal from 'react-modal';
 import './resources/index.css';
+import "./resources/modal.css"
 import {Login} from './login';
 
 export const backEndUrl = "https://hd.hegelty.space";

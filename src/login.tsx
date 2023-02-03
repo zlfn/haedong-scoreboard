@@ -3,9 +3,9 @@ import Modal, {Props} from "react-modal";
 import * as url from "url";
 import * as queryString from "query-string";
 import {useSearchParams} from 'react-router-dom';
-import "./resources/modal.css"
 import axios from 'axios'
 import {backEndUrl} from "./index";
+import {inspect} from "util";
 
 type LoginProps = {
     loggedIn: Boolean;
@@ -20,6 +20,7 @@ export const Login: React.FC<LoginProps> = ({loggedIn, setToken}) => {
     const [failModalOpened, setFailModalOpened] = useState(false)
     const [loginModalOpened, setLoginModalOpened] = useState(false)
     const [authCode, setAuthCode] = useState("")
+
     function Button() {
         if(loggedIn) {
             return <ProfileHolder/>
@@ -31,28 +32,37 @@ export const Login: React.FC<LoginProps> = ({loggedIn, setToken}) => {
     useEffect(() => {
         const URLSearch = new URLSearchParams(window.location.search)
         if(URLSearch.has("code")) {
-            setAuthCode(URLSearch.get("code")!)
-            axios.get(backEndUrl + "/login?code=" + authCode)
+            const auth = URLSearch.get("code")
+            // @ts-ignore
+            setAuthCode(auth)
+            console.log(auth)
+            window.history.replaceState({}, "", document.location.href.split("?")[0]);
+            axios.get(backEndUrl + "/login?code=" + auth)
                 .then(response => {
                     console.log(response.data.data)
                     //TODO: 로그인 프로세스 구성
                 })
                 .catch(error => {
                     setFailModalOpened(true)
-                    window.history.pushState({}, "", document.location.href.split("?")[0]);
                     console.log(error)
                 })
         }
     },[])
 
     return <>
-        <Modal isOpen={loginModalOpened} style={ModalStyle as Modal.Styles}>
+        <Modal
+            isOpen={loginModalOpened}
+            overlayClassName="Modal_Overlay"
+            className="Modal_Content">
             <LoginModal
                 closeModal={()=>setLoginModalOpened(false)}
                 setStudentData={()=>{}}
             />
         </Modal>
-        <Modal isOpen={failModalOpened} style={ModalStyle as Modal.Styles}>
+        <Modal
+            isOpen={failModalOpened}
+            overlayClassName="Modal_Overlay"
+            className="Modal_Content">
             <LoginFailModal
                 closeModal={()=>setFailModalOpened(false)}
             />
@@ -109,32 +119,4 @@ const LoginFailModal: React.FC<ModalProps> = ({closeModal}) => {
             <button onClick={closeModal}>닫기</button>
         </>
     )
-}
-
-
-const ModalStyle = {
-    overlay: {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        zIndex: 100,
-    },
-    content: {
-        position: 'absolute',
-        zIndex:101,
-        top: '30%',
-        left: '30%',
-        right: '30%',
-        bottom: '30%',
-        border: '1px solid #ccc',
-        background: '#fff',
-        overflow: 'auto',
-        WebkitOverflowScrolling: 'touch',
-        borderRadius: '10px',
-        outline: 'none',
-        padding: '20px'
-    }
 }
