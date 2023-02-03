@@ -4,6 +4,38 @@ import Modal from 'react-modal';
 import './resources/index.css';
 import {Login} from './login';
 
+
+
+const backEndUrl = "https://hd.hegelty.space"
+export const App: React.FC = () => {
+    const [loggedIn, setLogin] = useState(false)
+    const [token, setToken] = useState("")
+    function login(token:string):void {
+        setLogin(true)
+        setToken(token)
+    }
+
+    return(
+        <>
+            <div className="top">
+                <img src="/logo.png" alt="Logo" id="logo"/>
+                <Login
+                    loggedIn={loggedIn}
+                    setToken={login}
+                />
+            </div>
+                <Temp/>
+        </>
+    )
+}
+
+
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
+root.render(<App/>);
+
+
 const Temp: React.FC = () => {
     return (
         <>
@@ -50,65 +82,4 @@ const Temp: React.FC = () => {
             </div>
         </>
     )
-}
-
-export const App: React.FC = () => {
-    const [modal, setmodal] = useState(true);
-    return(
-        <>
-            <div className="top">
-                <img src="https://via.placeholder.com/320" alt="Logo" id="logo"/>
-                <Login loggedIn={false}/>
-            </div>
-                <Modal isOpen={modal} style={ModalStyle as ReactModal.Styles}>
-                    <h3>처음 로그인 하셨군요! 이름과 학번을 알려주시겠어요?</h3>
-                    이름<br/>
-                    <input type="text"/><br/>
-                    학번<br/>
-                    <input type="text"/><br/>
-                    <br/><br/><br/>
-                    <button>확인</button>
-                    <span>              </span>
-                    <button onClick={()=>setmodal(false)}>로그인 취소</button>
-                </Modal>
-                <Temp/>
-        </>
-    )
-}
-
-
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(<App/>);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-
-const ModalStyle = {
-    overlay: {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        zIndex: 100,
-    },
-    content: {
-        position: 'absolute',
-        zIndex:101,
-        top: '30%',
-        left: '30%',
-        right: '30%',
-        bottom: '30%',
-        border: '1px solid #ccc',
-        background: '#fff',
-        overflow: 'auto',
-        WebkitOverflowScrolling: 'touch',
-        borderRadius: '10px',
-        outline: 'none',
-        padding: '20px'
-    }
 }
