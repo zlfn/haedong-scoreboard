@@ -51,8 +51,8 @@
     left: 30%;
     right: 30%;
     bottom: 30%;
-    border: 1px solid #ccc;
-    background: #fff;
+    /* border: 1px solid #ccc; */
+    background: #1a1d1f;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     border-radius: 20px;
@@ -134,11 +134,20 @@ font-family: 'GothamPro', 'Apple SD Gothic Neo', 'Pretendard', 'Segoe UI', Sans-
     margin-right: 15px;
 }
 
+.modalfail{
+    display: flex;
+    align-items:flex-start;
+    flex-direction: column;
+    vertical-align: center;
+    margin-left: 30px;
+}
 .modalfail h3{
     font-family: 'GothamPro', 'Apple SD Gothic Neo', 'Pretendard', 'Segoe UI', Sans-Serif,
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
     color: rgb(198, 198, 198);
+    font-size: 25px;
     line-height: 10px;
+    margin-top: 40px;
 }
 .modalfail button{
     font-family: 'GothamPro', 'Apple SD Gothic Neo', 'Pretendard', 'Segoe UI', Sans-Serif,
@@ -148,6 +157,8 @@ font-family: 'GothamPro', 'Apple SD Gothic Neo', 'Pretendard', 'Segoe UI', Sans-
     border-radius: 10px;
     outline: none;
     width: 80px;
-    margin-right: 10px;
+    margin-right: 40px;
+    margin-left: auto;
+    margin-top: 40%;
 }
   

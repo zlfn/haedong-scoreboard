@@ -242,7 +242,7 @@ const LoadingModal: React.FC = () => {
                 height="100px"
                 width="100px"
                 type="bars"
-                color="#2e2e2e"
+                color="#ffffff"
             ></ReactLoading>
         </>
     )
