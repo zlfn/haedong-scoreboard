@@ -190,18 +190,31 @@ const LoginModal: React.FC<LoginModalProps> = ({authCode, login, closeModal, fai
 
     return (
         <>
-            <h3>처음 로그인 하셨군요! 이름과 학번을 알려주시곘어요?</h3>
-            <input onChange={nameChange} maxLength={3} placeholder="이름"/>
-            <input onChange={numberChange} maxLength={4} placeholder="학번"/>
-            <br/><br/>
-            <button onClick={register}>제출하기</button>
-            <button onClick={closeModal}>로그인 취소</button>
-            <Modal
-                isOpen={loadingModalOpened}
-                overlayClassName="Modal_Alpha_Overlay"
-                className="Modal_Loading">
-                <LoadingModal/>
-            </Modal>
+            <div className="signin">
+                
+                <div id="messege">
+                    <h3>처음 로그인하셨군요.</h3><h3>이름과 학번을 입력하세요.</h3>
+                </div>
+                <hr className="bar"></hr>
+                <br></br>
+                <div className="modal-input">
+                    <input onChange={numberChange} maxLength={4} placeholder=" 학번"/>
+                    <input onChange={nameChange} maxLength={3} placeholder=" 이름"/>
+                </div>
+                <br/><br/>
+                <div className="modal-btn">
+                    <button onClick={register}>Submit</button>
+                    <button onClick={closeModal}>Cancel</button>
+                </div>
+                
+                <Modal
+                    isOpen={loadingModalOpened}
+                    overlayClassName="Modal_Alpha_Overlay"
+                    className="Modal_Loading">
+                    <LoadingModal/>
+                </Modal>
+            </div>
+            
         </>
 ) }
 
@@ -209,8 +222,11 @@ const LoginModal: React.FC<LoginModalProps> = ({authCode, login, closeModal, fai
 const LoginFailModal: React.FC<ModalProps> = ({closeModal}) => {
     return (
         <>
-            <h3>로그인에 실패했습니다.</h3>
-            <button onClick={closeModal}>닫기</button>
+            <div className="modalfail">
+                <h3>로그인에 실패했습니다.</h3>
+                <button onClick={closeModal}>닫기</button>
+            </div>
+            
         </>
     )
 }

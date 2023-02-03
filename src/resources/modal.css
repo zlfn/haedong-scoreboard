@@ -1,3 +1,11 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
+@import url('https://rsms.me/inter/inter.css');
+@import url('https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,800&display=swap');
+@import url('https://gists.rawgit.com/mfd/f3d96ec7f0e8f034cc22ea73b3797b59/raw/856f1dbb8d807aabceb80b6d4f94b464df461b3e/gotham.css');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;700&display=swap');
+
+
 .Modal_Overlay {
     position: fixed;
     top: 0;
@@ -26,11 +34,11 @@
     left: 30%;
     right: 30%;
     bottom: 30%;
-    border: 1px solid #ccc;
-    background: #fff;
+    /* border: 1px solid #ccc; */
+    background: #1a1d1f;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
-    border-radius: 10px;
+    border-radius: 20px;
     outline: none;
     padding: 20px;
 
@@ -47,7 +55,7 @@
     background: #fff;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
-    border-radius: 10px;
+    border-radius: 20px;
     outline: none;
     padding: 20px;
 
@@ -55,3 +63,91 @@
     justify-content:center;
     align-items:center;
 }
+
+.signin {
+    display: flex;
+    align-items:flex-start;
+    flex-direction: column;
+    vertical-align: center;
+    margin-left: 30px;
+}
+#messege {
+    font-family:  'Pretendard', 'GothamPro', 'Segoe UI', Sans-Serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    color: #dfdfdf;
+    font-size: 24px;
+    line-height: 9px;
+    margin-bottom: 10px;
+}
+
+.bar{
+    width: 91%;
+    margin-left: 0px;
+    margin-right: 50px;
+    margin-bottom: -10px;
+    margin-top: -10px;
+}
+
+.modal-input{
+    display: flex;
+    align-items:flex-start;
+    flex-direction: row;
+    vertical-align: center;
+    width: 94%;
+}
+.modal-input input{
+font-family: 'GothamPro', 'Apple SD Gothic Neo', 'Pretendard', 'Segoe UI', Sans-Serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    width: 200%;
+    height: 35px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    margin-top: 15px;
+    padding-left: 10px;
+    margin-right: 15px;
+    background-color: #4f4f4f;
+    color:#fff;
+    font-size: 15px;
+}
+
+.modal-input input::placeholder {
+    font-family: 'GothamPro', 'Apple SD Gothic Neo', 'Pretendard', 'Segoe UI', Sans-Serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    color: rgb(198, 198, 198);
+    font-weight: 500;
+    margin-left: 10px;
+}
+.modal-btn{
+    margin-left: auto;
+    margin-right: 27px;
+}
+.modal-btn button{
+    font-family: 'GothamPro', 'Apple SD Gothic Neo', 'Pretendard', 'Segoe UI', Sans-Serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    height: 30px;
+    border: 0;
+    border-radius: 10px;
+    outline: none;
+    width: 80px;
+    margin-top: 35%;
+    margin-right: 15px;
+}
+
+.modalfail h3{
+    font-family: 'GothamPro', 'Apple SD Gothic Neo', 'Pretendard', 'Segoe UI', Sans-Serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    color: rgb(198, 198, 198);
+    line-height: 10px;
+}
+.modalfail button{
+    font-family: 'GothamPro', 'Apple SD Gothic Neo', 'Pretendard', 'Segoe UI', Sans-Serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    height: 30px;
+    border: 0;
+    border-radius: 10px;
+    outline: none;
+    width: 80px;
+    margin-right: 10px;
+}
+  
