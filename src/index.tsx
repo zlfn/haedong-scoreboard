@@ -4,9 +4,7 @@ import Modal from 'react-modal';
 import './resources/index.css';
 import {Login} from './login';
 
-
-
-const backEndUrl = "https://hd.hegelty.space"
+export const backEndUrl = "https://hd.hegelty.space";
 export const App: React.FC = () => {
     const [loggedIn, setLogin] = useState(false)
     const [token, setToken] = useState("")
@@ -55,12 +53,18 @@ const Temp: React.FC = () => {
                         <th>Col Header</th>
                         <th>Col Header</th>
                         <th>Col Header</th>
+                        <th>Col Header</th>
+                        <th>Col Header</th>
+                        <th>Col Header</th>
                     </tr>
                     </thead>
 
                     <tbody>
                     <tr>
                         <th>Row Header</th>
+                        <td>Cell Data</td>
+                        <td>Cell Data</td>
+                        <td>Cell Data</td>
                         <td>Cell Data</td>
                         <td>Cell Data</td>
                         <td>Cell Data</td>
