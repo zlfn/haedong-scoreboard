@@ -5,14 +5,12 @@ import "./resources/modal.css"
 import "./resources/custom.css"
 import {Login} from './login';
 import Cookies from 'universal-cookie';
+import axios from "axios";
 
-export const backEndUrl = "http://hd.hegelty.space";
+export const backEndUrl = "https://hd.hegelty.space";
 export const App: React.FC = () => {
     const [loggedIn, setLogin] = useState(false)
-    function login(session:string):void {
-        setLogin(true)
-        new Cookies().set("session_id", session)
-    }
+    const [userName, setUserName] = useState("")
 
     return(
         <>
@@ -20,10 +18,12 @@ export const App: React.FC = () => {
                 <img src="/logo.png" alt="Logo" id="logo"/>
                 <Login
                     loggedIn={loggedIn}
-                    login={login}
+                    userName={userName}
+                    setLoggedIn={setLogin}
+                    setUserName={setUserName}
                 />
             </div>
-                <Temp/>
+            <Temp/>
         </>
     )
 }
