@@ -7,7 +7,6 @@ import ReactLoading from "react-loading";
 import Cookies from "universal-cookie";
 
 ReactModal.setAppElement('#root');
-axios.defaults.withCredentials = true
 
 type LoginProps = {
     loggedIn:boolean;
@@ -23,7 +22,7 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
     const [session, setSession] = useState("")
 
     function login(session: string) {
-        new Cookies().set("session_id", session)
+        new Cookies().set("session_id", session, {sameSite:"none", secure:true})
         axios.get(backEndUrl + '/user/info', {withCredentials:true})
             .then (response => {
                 const res = response.data
@@ -59,7 +58,7 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
             const auth = URLSearch.get("code")
 
             window.history.replaceState({}, "", document.location.href.split("?")[0]);
-            axios.get(backEndUrl + "/login?code=" + auth)
+            axios.get(backEndUrl + "/login/?code=" + auth)
                 .then(response => {
                     const res = response.data
                     if (res.success) {
@@ -161,7 +160,7 @@ const LoginModal: React.FC<LoginModalProps> = ({setWorking, session,  login, clo
         setWorking(true)
         setLoadingModalOpened(true)
         axios.defaults.withCredentials = true;
-        new Cookies().set("session_id", session,{secure: false, sameSite: 'strict'})
+        new Cookies().set("session_id", session,{secure: true, sameSite: 'none'})
         axios.post(backEndUrl + "/login/register", {
             name: name,
             student_id: number
