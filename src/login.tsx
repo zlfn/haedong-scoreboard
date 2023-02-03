@@ -18,10 +18,12 @@ type LoginProps = {
 export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,  userName}) => {
     const [failModalOpened, setFailModalOpened] = useState(false)
     const [loginModalOpened, setLoginModalOpened] = useState(false)
+    const [loginModalWorking, setLoginModalWorking] = useState(false)
     const [loadingModalOpened, setLoadingModalOpened] = useState(false)
     const [session, setSession] = useState("")
 
     function login(session: string) {
+        new Cookies().set("session_id", session)
         axios.get(backEndUrl + '/user/info', {withCredentials:true})
             .then (response => {
                 const res = response.data
@@ -32,7 +34,6 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
                 return
             })
         setLoggedIn(true)
-        new Cookies().set("session_id", session)
     }
 
     function Button() {
@@ -79,8 +80,8 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
                     }
                 })
                 .catch(error => {
-                    setLoadingModalOpened(false)
-                    setFailModalOpened(true)
+                    failHandle()
+                    return
                 })
         }
     }, [userName])
@@ -89,11 +90,15 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
         <Modal
             isOpen={loginModalOpened}
             overlayClassName="Modal_Overlay"
-            onRequestClose={()=>setLoginModalOpened(false)}
+            onRequestClose={() => {
+                if(!loginModalWorking)
+                    setLoginModalOpened(false)
+            }}
             className="Modal_Content">
             <LoginModal
                 session={session}
                 login={login}
+                setWorking={setLoginModalWorking}
                 closeModal={() => setLoginModalOpened(false)}
                 failCallback={failHandle}
             />
@@ -144,16 +149,17 @@ interface LoginModalProps extends ModalProps {
     session: string
     login: (session: string) => void
     failCallback: () => void
+    setWorking:(value: boolean) => void
 }
 
-const LoginModal: React.FC<LoginModalProps> = ({session,  login, closeModal, failCallback}) => {
+const LoginModal: React.FC<LoginModalProps> = ({setWorking, session,  login, closeModal, failCallback}) => {
     const [loadingModalOpened, setLoadingModalOpened] = useState(false)
     const [name, setName] = useState("")
     const [number, setNumber] = useState("")
 
     function register() {
+        setWorking(true)
         setLoadingModalOpened(true)
-
         axios.defaults.withCredentials = true;
         new Cookies().set("session_id", session,{secure: false, sameSite: 'strict'})
         axios.post(backEndUrl + "/login/register", {
@@ -162,12 +168,17 @@ const LoginModal: React.FC<LoginModalProps> = ({session,  login, closeModal, fai
         },{withCredentials:true})
             .then(response => {
                 if (response.data.success) {
+                    setWorking(false)
                     login(session)
+                    return
                 } else {
+                    setWorking(false)
                     failCallback()
+                    return
                 }
             })
             .catch(error => {
+                setWorking(false)
                 failCallback()
                 return
             })
