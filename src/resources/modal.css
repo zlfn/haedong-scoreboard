@@ -22,4 +22,25 @@
     border-radius: 10px;
     outline: none;
     padding: 20px;
+
+}
+
+.Modal_Loading {
+    position: absolute;
+    z-index: 101;
+    top: 30%;
+    left: 30%;
+    right: 30%;
+    bottom: 30%;
+    border: 1px solid #ccc;
+    background: #fff;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 10px;
+    outline: none;
+    padding: 20px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
