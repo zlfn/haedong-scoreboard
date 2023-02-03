@@ -1,70 +1,77 @@
 import React, {useEffect, useState} from "react";
 import Modal from "react-modal";
-import * as url from "url";
-import * as queryString from "query-string";
-import {useSearchParams} from 'react-router-dom';
 import axios from 'axios'
 import {backEndUrl} from "./index";
-import {inspect} from "util";
 import ReactModal from "react-modal";
 import ReactLoading from "react-loading";
 import Cookies from "universal-cookie";
 
 ReactModal.setAppElement('#root');
+axios.defaults.withCredentials = true
 
 type LoginProps = {
-    loggedIn: Boolean;
-    login: (session: string)=>void;
+    loggedIn:boolean;
+    setLoggedIn: (value:boolean) => void;
+    userName: string;
+    setUserName: (value:string) => void;
 }
-
-type StudentInfo = {
-    name: string;
-    studentNum: string;
-}
-export const Login: React.FC<LoginProps> = ({loggedIn, login}) => {
+export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,  userName}) => {
     const [failModalOpened, setFailModalOpened] = useState(false)
     const [loginModalOpened, setLoginModalOpened] = useState(false)
     const [loadingModalOpened, setLoadingModalOpened] = useState(false)
-    const [authCode, setAuthCode] = useState("")
+    const [session, setSession] = useState("")
+
+    function login(session: string) {
+        axios.get(backEndUrl + '/user/info', {withCredentials:true})
+            .then (response => {
+                const res = response.data
+                setUserName(res.id)
+            })
+            .catch (error => {
+                failHandle()
+                return
+            })
+        setLoggedIn(true)
+        new Cookies().set("session_id", session)
+    }
 
     function Button() {
-        if(loggedIn) {
-            return <ProfileHolder/>
+        if (loggedIn) {
+            return <>
+                <button id="login">{userName}</button>
+            </>
         }
         return <LoginButton/>
     }
 
-    function registerFailHandle() {
+    function failHandle() {
         setLoginModalOpened(false)
+        setLoadingModalOpened(false)
         setFailModalOpened(true)
     }
 
-    console.log(authCode)
     //code 쿼리 존재하면 로그인 시도
     useEffect(() => {
         const URLSearch = new URLSearchParams(window.location.search)
-        if(URLSearch.has("code")) {
+        if (URLSearch.has("code")) {
             setLoadingModalOpened(true)
             const auth = URLSearch.get("code")
-            // @ts-ignore
-            setAuthCode(auth)
 
             window.history.replaceState({}, "", document.location.href.split("?")[0]);
-            setTimeout(()=>
-            {axios.get(backEndUrl + "/login?code=" + auth)
+            axios.get(backEndUrl + "/login?code=" + auth)
                 .then(response => {
                     const res = response.data
-                    if(res.success) {
+                    if (res.success) {
                         login(res.session)
                         return
                     } else {
-                        if(res.error === 1) {
+                        if (res.error === 1) {
                             setLoadingModalOpened(false)
                             setFailModalOpened(true)
                             return
                         }
-                        if(res.error === 2) {
-                            new Cookies().set("session_id", res.session)
+                        if (res.error === 2) {
+                            setSession(res.session)
                             setLoadingModalOpened(false)
                             setLoginModalOpened(true)
                             return
@@ -75,28 +82,29 @@ export const Login: React.FC<LoginProps> = ({loggedIn, login}) => {
                     setLoadingModalOpened(false)
                     setFailModalOpened(true)
                 })
-        },1000)
         }
-    }, [login])
+    }, [userName])
 
     return <>
         <Modal
             isOpen={loginModalOpened}
             overlayClassName="Modal_Overlay"
+            onRequestClose={()=>setLoginModalOpened(false)}
             className="Modal_Content">
             <LoginModal
+                session={session}
                 login={login}
-                authCode={authCode}
-                closeModal={()=>setLoginModalOpened(false)}
-                failCallback={registerFailHandle}
+                closeModal={() => setLoginModalOpened(false)}
+                failCallback={failHandle}
             />
         </Modal>
         <Modal
             isOpen={failModalOpened}
             overlayClassName="Modal_Overlay"
+            onRequestClose={()=>setFailModalOpened(false)}
             className="Modal_Content">
             <LoginFailModal
-                closeModal={()=>setFailModalOpened(false)}
+                closeModal={() => setFailModalOpened(false)}
             />
         </Modal>
         <Modal
@@ -105,13 +113,12 @@ export const Login: React.FC<LoginProps> = ({loggedIn, login}) => {
             className="Modal_Loading">
             <LoadingModal/>
         </Modal>
-        <button onClick={()=>setLoginModalOpened(true)}>정보 입력 창 열기</button>
-        <button onClick={()=>setLoadingModalOpened(true)}>로딩 창 열기</button>
-        <button onClick={()=>setFailModalOpened(true)}>실패 창 열기</button>
+        <button onClick={() => setLoginModalOpened(true)}>정보 입력 창 열기</button>
+        <button onClick={() => setLoadingModalOpened(true)}>로딩 창 열기</button>
+        <button onClick={() => setFailModalOpened(true)}>실패 창 열기</button>
         <Button/>
     </>
 }
-
 
 
 const LoginButton: React.FC = () => {
@@ -125,60 +132,45 @@ const LoginButton: React.FC = () => {
         scope: oauthScope
     })
     return (
-        <button id="login" onClick={()=>window.location.href=oauthLoginUri}>Login?</button>
-    )
-}
-
-const ProfileHolder: React.FC = () => {
-    return (
-        <button id="login">zlfn</button>
+        <button id="login" onClick={() => window.location.href = oauthLoginUri}>Login?</button>
     )
 }
 
 type ModalProps = {
-    closeModal: ()=>void
+    closeModal: () => void
 }
 
 interface LoginModalProps extends ModalProps {
-    authCode: string
-    login: (session: string)=>void
-    failCallback: ()=>void
+    session: string
+    login: (session: string) => void
+    failCallback: () => void
 }
 
-const LoginModal: React.FC<LoginModalProps> = ({authCode, login, closeModal, failCallback}) => {
+const LoginModal: React.FC<LoginModalProps> = ({session,  login, closeModal, failCallback}) => {
     const [loadingModalOpened, setLoadingModalOpened] = useState(false)
     const [name, setName] = useState("")
     const [number, setNumber] = useState("")
+
     function register() {
         setLoadingModalOpened(true)
-        setTimeout(() => {axios.post(backEndUrl + "/login/register", {
-                name: name,
-                student_id: number
-            }, {withCredentials:true})
-                .then(response => {
-                    if (response.data.success) {
-                        setTimeout(()=> {axios.get(backEndUrl + "/login?code=" + authCode)
-                                .then(response => {
-                                    if (response.data.success) {
-                                        login(response.data.session)
-                                        closeModal()
-                                    } else {
-                                        failCallback()
-                                    }
-                                })
-                                .catch(error => {
-                                    failCallback()
-                                })
-                        },1000)
-                    } else {
-                        failCallback()
-                    }
-                })
-                .catch(error => {
+
+        axios.defaults.withCredentials = true;
+        new Cookies().set("session_id", session,{secure: false, sameSite: 'strict'})
+        axios.post(backEndUrl + "/login/register", {
+            name: name,
+            student_id: number
+        },{withCredentials:true})
+            .then(response => {
+                if (response.data.success) {
+                    login(session)
+                } else {
                     failCallback()
-                    return
-                })
-        }, 1000)
+                }
+            })
+            .catch(error => {
+                failCallback()
+                return
+            })
     }
 
     const nameChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
@@ -216,7 +208,8 @@ const LoginModal: React.FC<LoginModalProps> = ({authCode, login, closeModal, fai
             </div>
             
         </>
-) }
+    )
+}
 
 
 const LoginFailModal: React.FC<ModalProps> = ({closeModal}) => {
