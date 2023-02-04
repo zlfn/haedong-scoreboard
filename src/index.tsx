@@ -4,8 +4,6 @@ import './resources/index.css';
 import "./resources/modal.css"
 import "./resources/custom.css"
 import {Login} from './login';
-import Cookies from 'universal-cookie';
-import axios from "axios";
 
 export const backEndUrl = "https://hd.hegelty.space";
 export const App: React.FC = () => {

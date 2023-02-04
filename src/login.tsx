@@ -4,7 +4,6 @@ import axios from 'axios'
 import {backEndUrl} from "./index";
 import ReactModal from "react-modal";
 import ReactLoading from "react-loading";
-import Cookies from "universal-cookie";
 
 ReactModal.setAppElement('#root');
 
@@ -20,7 +19,7 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
     const [loadingModalOpened, setLoadingModalOpened] = useState(false)
 
     async function login(): Promise<boolean> {
-        return await axios.get(backEndUrl + '/user/info', {withCredentials: true})
+        return await axios.get(backEndUrl + '/user/info',{withCredentials:true})
             .then(response => {
                 const res = response.data
                 if (res.success) {
@@ -64,23 +63,19 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
                     if (res.success) {
                         if (!login())
                             failHandle()
-                        return
                     } else {
                         if (res.error === 1) {
                             setLoadingModalOpened(false)
                             setFailModalOpened(true)
-                            return
                         }
                         if (res.error === 2) {
                             setLoadingModalOpened(false)
                             setLoginModalOpened(true)
-                            return
                         }
                     }
                 })
                 .catch(error => {
                     failHandle()
-                    return
                 })
         }
         //존재하지 않으면 세션으로 자동 로그인 시도
@@ -171,21 +166,17 @@ const LoginModal: React.FC<LoginModalProps> = ({login, closeModal, failCallback}
             .then(response => {
                 if (response.data.success) {
                     if(!login())
-                    {
                         failCallback()
-                        return
+                    else {
+                        setLoadingModalOpened(false)
+                        closeModal()
                     }
-                    setLoadingModalOpened(false)
-                    closeModal()
-                    return
                 } else {
                     failCallback()
-                    return
                 }
             })
             .catch(error => {
                 failCallback()
-                return
             })
     }
 
