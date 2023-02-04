@@ -84,8 +84,9 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
         //존재하지 않으면 세션으로 자동 로그인 시도
         else {
             setLoadingModalOpened(true)
-            login()
-            setLoadingModalOpened(false)
+            login().then(value => {
+                setLoadingModalOpened(false)
+            })
         }
     }, [userName])
 
