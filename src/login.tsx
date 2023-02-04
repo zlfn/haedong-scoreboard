@@ -9,7 +9,7 @@ import Cookies from "universal-cookie";
 ReactModal.setAppElement('#root');
 
 type LoginProps = {
-    loggedIn:boolean;
+    loggedIn: boolean;
     setLoggedIn: (value:boolean) => void;
     userName: string;
     setUserName: (value:string) => void;
@@ -19,20 +19,18 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
     const [loginModalOpened, setLoginModalOpened] = useState(false)
     const [loginModalWorking, setLoginModalWorking] = useState(false)
     const [loadingModalOpened, setLoadingModalOpened] = useState(false)
-    const [session, setSession] = useState("")
 
-    function login(session: string) {
-        new Cookies().set("session_id", session, {sameSite:"none", secure:true})
+    function login():boolean {
         axios.get(backEndUrl + '/user/info', {withCredentials:true})
             .then (response => {
                 const res = response.data
                 setUserName(res.id)
+                setLoggedIn(true)
             })
             .catch (error => {
-                failHandle()
-                return
+                return false
             })
-        setLoggedIn(true)
+        return true
     }
 
     function Button() {
@@ -50,8 +48,8 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
         setFailModalOpened(true)
     }
 
-    //code 쿼리 존재하면 로그인 시도
     useEffect(() => {
+        //code 쿼리 존재하면 로그인 시도
         const URLSearch = new URLSearchParams(window.location.search)
         if (URLSearch.has("code")) {
             setLoadingModalOpened(true)
@@ -62,7 +60,8 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
                 .then(response => {
                     const res = response.data
                     if (res.success) {
-                        login(res.session)
+                        if(!login())
+                            failHandle()
                         return
                     } else {
                         if (res.error === 1) {
@@ -71,7 +70,6 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
                             return
                         }
                         if (res.error === 2) {
-                            setSession(res.session)
                             setLoadingModalOpened(false)
                             setLoginModalOpened(true)
                             return
@@ -83,6 +81,8 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
                     return
                 })
         }
+        //존재하지 않으면 자동 로그인 시도
+        else login()
     }, [userName])
 
     return <>
@@ -95,7 +95,6 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
             }}
             className="Modal_Content">
             <LoginModal
-                session={session}
                 login={login}
                 setWorking={setLoginModalWorking}
                 closeModal={() => setLoginModalOpened(false)}
@@ -145,13 +144,12 @@ type ModalProps = {
 }
 
 interface LoginModalProps extends ModalProps {
-    session: string
-    login: (session: string) => void
+    login: () => boolean
     failCallback: () => void
     setWorking:(value: boolean) => void
 }
 
-const LoginModal: React.FC<LoginModalProps> = ({setWorking, session,  login, closeModal, failCallback}) => {
+const LoginModal: React.FC<LoginModalProps> = ({setWorking, login, closeModal, failCallback}) => {
     const [loadingModalOpened, setLoadingModalOpened] = useState(false)
     const [name, setName] = useState("")
     const [number, setNumber] = useState("")
@@ -160,7 +158,6 @@ const LoginModal: React.FC<LoginModalProps> = ({setWorking, session,  login, clo
         setWorking(true)
         setLoadingModalOpened(true)
         axios.defaults.withCredentials = true;
-        new Cookies().set("session_id", session,{secure: true, sameSite: 'none'})
         axios.post(backEndUrl + "/login/register", {
             name: name,
             student_id: number
@@ -168,7 +165,8 @@ const LoginModal: React.FC<LoginModalProps> = ({setWorking, session,  login, clo
             .then(response => {
                 if (response.data.success) {
                     setWorking(false)
-                    login(session)
+                    if(!login())
+                        failCallback()
                     return
                 } else {
                     setWorking(false)
