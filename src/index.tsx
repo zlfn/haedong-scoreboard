@@ -12,6 +12,13 @@ export const App: React.FC = () => {
     const [loggedIn, setLogin] = useState(false)
     const [userName, setUserName] = useState("")
 
+    function temp() {
+        if(loggedIn)
+            return <TempLogged/>
+        else
+            return <Temp/>
+    }
+
     return(
         <>
             <div className="top">
@@ -23,7 +30,7 @@ export const App: React.FC = () => {
                     setUserName={setUserName}
                 />
             </div>
-            <Temp/>
+            {temp()}
         </>
     )
 }
@@ -44,40 +51,134 @@ const Temp: React.FC = () => {
                     <thead>
                     <tr>
                         <th className="pin"></th>
-                        <th>Col Header</th>
-                        <th>Col Header</th>
-                        <th>Col Header</th>
-                        <th>Col Header</th>
-                        <th>Col Header</th>
-                        <th>Col Header</th>
-                        <th>Col Header</th>
-                        <th>Col Header</th>
-                        <th>Col Header</th>
-                        <th>Col Header</th>
-                        <th>Col Header</th>
-                        <th>Col Header</th>
-                        <th>Col Header</th>
-                        <th>Col Header</th>
+                        <th>1</th>
+                        <th>2</th>
+                        <th>3</th>
+                        <th>4</th>
+                        <th>SCORE</th>
                     </tr>
                     </thead>
 
                     <tbody>
                     <tr>
-                        <th>Row Header</th>
-                        <td>Cell Data</td>
-                        <td>Cell Data</td>
-                        <td>Cell Data</td>
-                        <td>Cell Data</td>
-                        <td>Cell Data</td>
-                        <td>Cell Data</td>
-                        <td>Cell Data</td>
-                        <td>Cell Data</td>
-                        <td>Cell Data</td>
-                        <td>Cell Data</td>
-                        <td>Cell Data</td>
-                        <td>Cell Data</td>
-                        <td>Cell Data</td>
-                        <td>Cell Data</td>
+                        <th>박찬웅</th>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greeenT">100점?</b></td>
+                    </tr>
+                    <tr>
+                        <th>나태양</th>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greeenT">100점?</b></td>
+                    </tr>
+                    <tr>
+                        <th>오레오</th>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">100점</b></td>
+                    </tr>
+                    <tr>
+                        <th>윤석준</th>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b>-</b></td>
+                        <td><b>-</b></td>
+                        <td><b className="yellowT">30점</b></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </>
+    )
+}
+const TempLogged: React.FC = () => {
+    return (
+        <>
+            <div className="middle">
+                <table>
+                    <thead>
+                    <tr>
+                        <th className="pin"></th>
+                        <th>1</th>
+                        <th>2</th>
+                        <th>3</th>
+                        <th>4</th>
+                        <th>PLUS A</th>
+                        <th>PLUS B</th>
+                        <th>PLUS C</th>
+                        <th>PLUS D</th>
+                        <th>SCORE</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr>
+                        {/*로그인 해야 보임*/}
+                        <th>내 점수</th>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greeenT">1111100점</b></td>
+                    </tr>
+                    <tr>
+                        <th>박찬웅</th>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greeenT">1111100점</b></td>
+                    </tr>
+                    <tr>
+                        <th>나태양</th>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b>-</b></td>
+                        <td><b className="greeenT">111100점</b></td>
+                    </tr>
+                    <tr>
+                        <th>오레오</th>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b>-</b></td>
+                        <td><b>-</b></td>
+                        <td><b>-</b></td>
+                        <td><b>-</b></td>
+                        <td><b className="greenT">100점</b></td>
+                    </tr>
+                    <tr>
+                        <th>윤석준</th>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b>-</b></td>
+                        <td><b>-</b></td>
+                        <td><b>-</b></td>
+                        <td><b>-</b></td>
+                        <td><b>-</b></td>
+                        <td><b>-</b></td>
+                        <td><b className="yellowT">30점</b></td>
                     </tr>
                     </tbody>
                 </table>

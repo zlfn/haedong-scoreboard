@@ -20,14 +20,14 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
     const [loginModalWorking, setLoginModalWorking] = useState(false)
     const [loadingModalOpened, setLoadingModalOpened] = useState(false)
 
-    function login():boolean {
-        axios.get(backEndUrl + '/user/info', {withCredentials:true})
-            .then (response => {
+    function login(): boolean {
+        axios.get(backEndUrl + '/user/info', {withCredentials: true})
+            .then(response => {
                 const res = response.data
                 setUserName(res.id)
                 setLoggedIn(true)
             })
-            .catch (error => {
+            .catch(error => {
                 return false
             })
         return true
@@ -60,7 +60,7 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
                 .then(response => {
                     const res = response.data
                     if (res.success) {
-                        if(!login())
+                        if (!login())
                             failHandle()
                         return
                     } else {
@@ -90,7 +90,7 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
             isOpen={loginModalOpened}
             overlayClassName="Modal_Overlay"
             onRequestClose={() => {
-                if(!loginModalWorking)
+                if (!loginModalWorking)
                     setLoginModalOpened(false)
             }}
             className="Modal_Content">
@@ -104,7 +104,7 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
         <Modal
             isOpen={failModalOpened}
             overlayClassName="Modal_Overlay"
-            onRequestClose={()=>setFailModalOpened(false)}
+            onRequestClose={() => setFailModalOpened(false)}
             className="Modal_Content">
             <LoginFailModal
                 closeModal={() => setFailModalOpened(false)}
@@ -119,6 +119,13 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
         <button onClick={() => setLoginModalOpened(true)}>정보 입력 창 열기</button>
         <button onClick={() => setLoadingModalOpened(true)}>로딩 창 열기</button>
         <button onClick={() => setFailModalOpened(true)}>실패 창 열기</button>
+        <button onClick={() => {
+            if (loggedIn)
+                setLoggedIn(false)
+            else
+                setLoggedIn(true)
+        }}>가상 로그인 토글
+        </button>
         <Button/>
     </>
 }
