@@ -23,10 +23,11 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
             .then(response => {
                 const res = response.data
                 if (res.success) {
-                    setUserName(res.id)
+                    setUserName(res.name)
                     setLoggedIn(true)
                     return true
-                } else
+                }
+                else
                     return false
             })
             .catch(error => {
@@ -63,6 +64,8 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
                     if (res.success) {
                         if (!login())
                             failHandle()
+                        else
+                            setLoadingModalOpened(false)
                     } else {
                         if (res.error === 1) {
                             setLoadingModalOpened(false)
@@ -121,6 +124,12 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
             else
                 setLoggedIn(true)
         }}>가상 로그인 토글
+        </button>
+        <button onClick={() => {
+            setLoggedIn(false)
+            axios.post(backEndUrl + '/login/delete', {}, {withCredentials:true})
+        }}>
+            탈퇴하기
         </button>
         <Button/>
     </>
