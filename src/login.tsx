@@ -197,11 +197,13 @@ const LoginModal: React.FC<LoginModalProps> = ({setWorking, login, closeModal, f
             })
     }
 
-    const nameChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
-        setName(e.target.value)
+    const nameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const result = e.target.value.replace(/[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, '');
+        setName(result)
     }
-    const numberChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
-        setNumber(e.target.value)
+    const numberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const result = e.target.value.replace(/\D/g, '');
+        setNumber(result);
     }
 
     function submitButton() {
@@ -222,8 +224,8 @@ const LoginModal: React.FC<LoginModalProps> = ({setWorking, login, closeModal, f
                 <hr className="bar"></hr>
                 <br></br>
                 <div className="modal-input">
-                    <input onChange={numberChange} maxLength={4} placeholder=" 학번"/>
-                    <input onChange={nameChange} maxLength={4} placeholder=" 이름"/>
+                    <input value={number} onChange={numberChange} maxLength={4} placeholder=" 학번"/>
+                    <input value={name} onChange={nameChange} maxLength={4} placeholder=" 이름"/>
                 </div>
                 <br/><br/>
                 <div className="modal-btn">
