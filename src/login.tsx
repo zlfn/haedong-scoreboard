@@ -129,7 +129,7 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
                         setLoggedIn(true)
                 })
             }
-        }}>가상 로그인 토글
+        }}>로그인 토글
         </button>
         <button onClick={() => {
             setLoggedIn(false)
