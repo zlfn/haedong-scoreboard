@@ -10,6 +10,12 @@ body {
     'Apple SD Gothic Neo', 'Pretendard', 'Segoe UI', Sans-Serif,
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
     background-color: #212529;
+    overflow: auto;
+    -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
 
 .top {
@@ -19,11 +25,13 @@ body {
     vertical-align: center;
 
 }
+
 #logo {
     width: 120px;
     margin: 20px;
     margin-top: 15px;
 }
+
 #login {
     font-family: 'GothamPro', 'Apple SD Gothic Neo', 'Pretendard', 'Segoe UI', Sans-Serif,
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
@@ -48,9 +56,12 @@ body {
     display: flex;
     flex-direction: row;
     vertical-align: center;
+    position: fixed;
+    bottom: 30px;
+    width: inherit;
 }
 
-#input{
+#input {
     font-family: 'GothamPro', 'Apple SD Gothic Neo', 'Pretendard', 'Segoe UI', Sans-Serif,
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
     width: 30%;
@@ -61,19 +72,22 @@ body {
     outline: none;
     padding-left: 10px;
     background-color: rgb(239, 239, 239);
-
+    flex: auto;
 }
-#submit{
+
+#submit {
     font-family: 'GothamPro', 'Apple SD Gothic Neo', 'Pretendard', 'Segoe UI', Sans-Serif,
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
     margin-left: 10px;
+    margin-right: 50px;
 
     border: 0;
     border-radius: 10px;
     outline: none;
     width: 80px;
 }
-.middle{
+
+.middle {
     display: flex;
     margin-left: 50px;
     margin-right: 50px;
@@ -83,27 +97,31 @@ body {
     padding-bottom: 35%;
     overflow-x: scroll;
 }
+
 table {
     font-family: 'GothamPro', 'Apple SD Gothic Neo', 'Pretendard', 'Segoe UI', Sans-Serif,
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 
     border-collapse: collapse;
-    overflow:hidden;
+    overflow: hidden;
     overflow-x: scroll;
     border: 0;
     width: 100%;
 
 }
+
 th,
 td {
     border: 1px solid #aaa;
     background-clip: padding-box;
     /* scroll-snap-align: start; */
 }
+
 tbody tr:last-child th,
 tbody tr:last-child td {
     border-bottom: 0;
 }
+
 thead {
     z-index: 10;
     position: relative;
@@ -117,6 +135,7 @@ th, td {
     background-color: rgba(97, 97, 97, 0.404);
 
 }
+
 thead th {
     font-weight: 500;
     position: sticky;
@@ -124,29 +143,39 @@ thead th {
     border-top: 0;
     background-clip: padding-box;
 }
+
 thead th.pin {
     left: 0;
     z-index: 11;
     border-left: 0;
 }
+
 tbody th {
     font-weight: 300;
     background-clip: padding-box;
     border-left: 0;
 }
+
 tbody {
     z-index: 9;
     position: relative;
 }
+
 tbody th {
     position: sticky;
     left: 0;
 }
+
 tbody td {
     color: #f1f1f1;
     font-weight: 100;
 }
+
 thead th,
 tbody th {
     background-color: #f1f1f1;
+}
+
+#root {
+    width: 100%;
 }
