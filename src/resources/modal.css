@@ -119,8 +119,9 @@ font-family: 'GothamPro', 'Apple SD Gothic Neo', 'Pretendard', 'Segoe UI', Sans-
     margin-left: 10px;
 }
 .modal-btn{
-    margin-left: auto;
-    margin-right: 27px;
+    position:absolute;
+    bottom:40px;
+    right:30px;
 }
 .modal-btn button{
     font-family: 'GothamPro', 'Apple SD Gothic Neo', 'Pretendard', 'Segoe UI', Sans-Serif,
@@ -130,8 +131,11 @@ font-family: 'GothamPro', 'Apple SD Gothic Neo', 'Pretendard', 'Segoe UI', Sans-
     border-radius: 10px;
     outline: none;
     width: 80px;
-    margin-top: 35%;
-    margin-right: 15px;
+    margin-right:10px;
+}
+
+.modal-btn-inactive{
+    background-color:rgba(256, 256, 256, 0.3);
 }
 
 .modalfail{
@@ -157,8 +161,8 @@ font-family: 'GothamPro', 'Apple SD Gothic Neo', 'Pretendard', 'Segoe UI', Sans-
     border-radius: 10px;
     outline: none;
     width: 80px;
-    margin-right: 40px;
-    margin-left: auto;
-    margin-top: 40%;
+    bottom:40px;
+    right: 40px;
+    position:absolute;
 }
   

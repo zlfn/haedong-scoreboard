@@ -7,10 +7,9 @@ import ReactLoading from "react-loading";
 import Cookies from "universal-cookie";
 
 ReactModal.setAppElement('#root');
-axios.defaults.withCredentials = true
 
 type LoginProps = {
-    loggedIn:boolean;
+    loggedIn: boolean;
     setLoggedIn: (value:boolean) => void;
     userName: string;
     setUserName: (value:string) => void;
@@ -20,20 +19,18 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
     const [loginModalOpened, setLoginModalOpened] = useState(false)
     const [loginModalWorking, setLoginModalWorking] = useState(false)
     const [loadingModalOpened, setLoadingModalOpened] = useState(false)
-    const [session, setSession] = useState("")
 
-    function login(session: string) {
-        new Cookies().set("session_id", session)
-        axios.get(backEndUrl + '/user/info', {withCredentials:true})
-            .then (response => {
+    function login(): boolean {
+        axios.get(backEndUrl + '/user/info', {withCredentials: true})
+            .then(response => {
                 const res = response.data
                 setUserName(res.id)
+                setLoggedIn(true)
             })
-            .catch (error => {
-                failHandle()
-                return
+            .catch(error => {
+                return false
             })
-        setLoggedIn(true)
+        return true
     }
 
     function Button() {
@@ -51,19 +48,20 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
         setFailModalOpened(true)
     }
 
-    //code 쿼리 존재하면 로그인 시도
     useEffect(() => {
+        //code 쿼리 존재하면 로그인 시도
         const URLSearch = new URLSearchParams(window.location.search)
         if (URLSearch.has("code")) {
             setLoadingModalOpened(true)
             const auth = URLSearch.get("code")
 
             window.history.replaceState({}, "", document.location.href.split("?")[0]);
-            axios.get(backEndUrl + "/login?code=" + auth)
+            axios.get(backEndUrl + "/login/?code=" + auth)
                 .then(response => {
                     const res = response.data
                     if (res.success) {
-                        login(res.session)
+                        if (!login())
+                            failHandle()
                         return
                     } else {
                         if (res.error === 1) {
@@ -72,7 +70,6 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
                             return
                         }
                         if (res.error === 2) {
-                            setSession(res.session)
                             setLoadingModalOpened(false)
                             setLoginModalOpened(true)
                             return
@@ -84,6 +81,12 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
                     return
                 })
         }
+        //존재하지 않으면 세션으로 자동 로그인 시도
+        else {
+            setLoadingModalOpened(true)
+            login()
+            setLoadingModalOpened(false)
+        }
     }, [userName])
 
     return <>
@@ -91,12 +94,11 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
             isOpen={loginModalOpened}
             overlayClassName="Modal_Overlay"
             onRequestClose={() => {
-                if(!loginModalWorking)
+                if (!loginModalWorking)
                     setLoginModalOpened(false)
             }}
             className="Modal_Content">
             <LoginModal
-                session={session}
                 login={login}
                 setWorking={setLoginModalWorking}
                 closeModal={() => setLoginModalOpened(false)}
@@ -106,7 +108,7 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
         <Modal
             isOpen={failModalOpened}
             overlayClassName="Modal_Overlay"
-            onRequestClose={()=>setFailModalOpened(false)}
+            onRequestClose={() => setFailModalOpened(false)}
             className="Modal_Content">
             <LoginFailModal
                 closeModal={() => setFailModalOpened(false)}
@@ -121,6 +123,13 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
         <button onClick={() => setLoginModalOpened(true)}>정보 입력 창 열기</button>
         <button onClick={() => setLoadingModalOpened(true)}>로딩 창 열기</button>
         <button onClick={() => setFailModalOpened(true)}>실패 창 열기</button>
+        <button onClick={() => {
+            if (loggedIn)
+                setLoggedIn(false)
+            else
+                setLoggedIn(true)
+        }}>가상 로그인 토글
+        </button>
         <Button/>
     </>
 }
@@ -146,13 +155,12 @@ type ModalProps = {
 }
 
 interface LoginModalProps extends ModalProps {
-    session: string
-    login: (session: string) => void
+    login: () => boolean
     failCallback: () => void
     setWorking:(value: boolean) => void
 }
 
-const LoginModal: React.FC<LoginModalProps> = ({setWorking, session,  login, closeModal, failCallback}) => {
+const LoginModal: React.FC<LoginModalProps> = ({setWorking, login, closeModal, failCallback}) => {
     const [loadingModalOpened, setLoadingModalOpened] = useState(false)
     const [name, setName] = useState("")
     const [number, setNumber] = useState("")
@@ -161,15 +169,20 @@ const LoginModal: React.FC<LoginModalProps> = ({setWorking, session,  login, clo
         setWorking(true)
         setLoadingModalOpened(true)
         axios.defaults.withCredentials = true;
-        new Cookies().set("session_id", session,{secure: false, sameSite: 'strict'})
         axios.post(backEndUrl + "/login/register", {
             name: name,
             student_id: number
         },{withCredentials:true})
             .then(response => {
                 if (response.data.success) {
+                    if(!login())
+                    {
+                        failCallback()
+                        return
+                    }
                     setWorking(false)
-                    login(session)
+                    setLoadingModalOpened(false)
+                    closeModal()
                     return
                 } else {
                     setWorking(false)
@@ -184,11 +197,21 @@ const LoginModal: React.FC<LoginModalProps> = ({setWorking, session,  login, clo
             })
     }
 
-    const nameChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
-        setName(e.target.value)
+    const nameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const result = e.target.value.replace(/[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, '');
+        setName(result)
     }
-    const numberChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
-        setNumber(e.target.value)
+    const numberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const result = e.target.value.replace(/\D/g, '');
+        setNumber(result);
+    }
+
+    function submitButton() {
+        if(4>= name.length && name.length >= 2 && number.length === 4)
+            return <button onClick={register}>Submit</button>
+        else
+            return <button
+                className="modal-btn-inactive">Submit</button>
     }
 
     return (
@@ -201,12 +224,12 @@ const LoginModal: React.FC<LoginModalProps> = ({setWorking, session,  login, clo
                 <hr className="bar"></hr>
                 <br></br>
                 <div className="modal-input">
-                    <input onChange={numberChange} maxLength={4} placeholder=" 학번"/>
-                    <input onChange={nameChange} maxLength={3} placeholder=" 이름"/>
+                    <input value={number} onChange={numberChange} maxLength={4} placeholder=" 학번"/>
+                    <input value={name} onChange={nameChange} maxLength={4} placeholder=" 이름"/>
                 </div>
                 <br/><br/>
                 <div className="modal-btn">
-                    <button onClick={register}>Submit</button>
+                    {submitButton()}
                     <button onClick={closeModal}>Cancel</button>
                 </div>
                 
@@ -228,7 +251,7 @@ const LoginFailModal: React.FC<ModalProps> = ({closeModal}) => {
         <>
             <div className="modalfail">
                 <h3>로그인에 실패했습니다.</h3>
-                <button onClick={closeModal}>닫기</button>
+                <button onClick={closeModal}>Close</button>
             </div>
             
         </>
