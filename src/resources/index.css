@@ -110,7 +110,7 @@ body {
     flex-direction: row;
     padding-bottom: 35%;
     overflow-x: scroll;
-    height: 65%;
+    height: 50%;
 }
 
 table {
