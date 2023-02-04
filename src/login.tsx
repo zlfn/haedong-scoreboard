@@ -9,25 +9,24 @@ ReactModal.setAppElement('#root');
 
 type LoginProps = {
     loggedIn: boolean;
-    setLoggedIn: (value:boolean) => void;
+    setLoggedIn: (value: boolean) => void;
     userName: string;
-    setUserName: (value:string) => void;
+    setUserName: (value: string) => void;
 }
-export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,  userName}) => {
+export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn, userName}) => {
     const [failModalOpened, setFailModalOpened] = useState(false)
     const [loginModalOpened, setLoginModalOpened] = useState(false)
     const [loadingModalOpened, setLoadingModalOpened] = useState(false)
 
     async function login(): Promise<boolean> {
-        return await axios.get(backEndUrl + '/user/info',{withCredentials:true})
+        return await axios.get(backEndUrl + '/user/info', {withCredentials: true})
             .then(response => {
                 const res = response.data
                 if (res.success) {
                     setUserName(res.name)
                     setLoggedIn(true)
                     return true
-                }
-                else
+                } else
                     return false
             })
             .catch(error => {
@@ -58,7 +57,7 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
             const auth = URLSearch.get("code")
 
             window.history.replaceState({}, "", document.location.href.split("?")[0]);
-            axios.get(backEndUrl + "/login/?code=" + auth, {withCredentials:true})
+            axios.get(backEndUrl + "/login/?code=" + auth, {withCredentials: true})
                 .then(response => {
                     const res = response.data
                     if (res.success) {
@@ -128,7 +127,7 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
         </button>
         <button onClick={() => {
             setLoggedIn(false)
-            axios.post(backEndUrl + '/login/delete', {}, {withCredentials:true})
+            axios.post(backEndUrl + '/login/delete', {}, {withCredentials: true})
         }}>
             탈퇴하기
         </button>
@@ -172,10 +171,10 @@ const LoginModal: React.FC<LoginModalProps> = ({login, closeModal, failCallback}
         axios.post(backEndUrl + "/login/register", {
             name: name,
             student_id: number
-        },{withCredentials:true})
+        }, {withCredentials: true})
             .then(response => {
                 if (response.data.success) {
-                    if(!login())
+                    if (!login())
                         failCallback()
                     else {
                         setLoadingModalOpened(false)
@@ -200,7 +199,7 @@ const LoginModal: React.FC<LoginModalProps> = ({login, closeModal, failCallback}
     }
 
     function submitButton() {
-        if(4>= name.length && name.length >= 2 && number.length === 4)
+        if (4 >= name.length && name.length >= 2 && number.length === 4)
             return <button onClick={register}>Submit</button>
         else
             return <button
@@ -210,7 +209,7 @@ const LoginModal: React.FC<LoginModalProps> = ({login, closeModal, failCallback}
     return (
         <>
             <div className="signin">
-                
+
                 <div id="messege">
                     <h3>처음 로그인하셨군요.</h3><h3>이름과 학번을 입력하세요.</h3>
                 </div>
@@ -225,7 +224,7 @@ const LoginModal: React.FC<LoginModalProps> = ({login, closeModal, failCallback}
                     {submitButton()}
                     <button onClick={closeModal}>Cancel</button>
                 </div>
-                
+
                 <Modal
                     isOpen={loadingModalOpened}
                     overlayClassName="Modal_Alpha_Overlay"
@@ -233,7 +232,7 @@ const LoginModal: React.FC<LoginModalProps> = ({login, closeModal, failCallback}
                     <LoadingModal/>
                 </Modal>
             </div>
-            
+
         </>
     )
 }
@@ -246,7 +245,7 @@ const LoginFailModal: React.FC<ModalProps> = ({closeModal}) => {
                 <h3>로그인에 실패했습니다.</h3>
                 <button onClick={closeModal}>Close</button>
             </div>
-            
+
         </>
     )
 }

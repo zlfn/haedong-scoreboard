@@ -11,13 +11,13 @@ export const App: React.FC = () => {
     const [userName, setUserName] = useState("박찬웅")
 
     function temp() {
-        if(loggedIn)
+        if (loggedIn)
             return <TempLogged/>
         else
             return <Temp/>
     }
 
-    return(
+    return (
         <>
             <div className="top">
                 <img src="/logo.png" alt="Logo" id="logo"/>
@@ -35,7 +35,7 @@ export const App: React.FC = () => {
 
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+    document.getElementById('root') as HTMLElement
 );
 root.render(<App/>);
 
