@@ -1,17 +1,20 @@
 /* 몇몇 테스트용 임시 CSS 파일 */
 .greenT {
-    color:lightgreen;
+    color: lightgreen;
     font-weight: 400;
 }
+
 .yellowT {
-    color:lightyellow;
+    color: lightyellow;
     font-weight: 400;
 }
+
 .redT {
-    color:lightcoral;
+    color: lightcoral;
     font-weight: 400;
 }
+
 .greeenT {
-    color:springgreen;
+    color: springgreen;
     font-weight: 400;
 }
