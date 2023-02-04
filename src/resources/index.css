@@ -112,7 +112,7 @@ table {
 
 th,
 td {
-    border: 1px solid #aaa;
+    border: 0.5px solid #8b8b8b;
     background-clip: padding-box;
     /* scroll-snap-align: start; */
 }
@@ -120,8 +120,17 @@ td {
 tbody tr:last-child th,
 tbody tr:last-child td {
     border-bottom: 0;
+    border-right: 0;
 }
 
+tbody tr td:last-child {
+    border-right: 0;
+}
+
+thead tr:last-child th,
+thaed tr:last-child td {
+    border-right: 0;
+}
 thead {
     z-index: 10;
     position: relative;
@@ -132,7 +141,7 @@ th, td {
     min-width: 6rem;
     text-align: left;
     margin: 0;
-    background-color: rgba(97, 97, 97, 0.404);
+    background-color: rgba(48, 48, 48, 0.404);
 
 }
 
@@ -164,6 +173,7 @@ tbody {
 tbody th {
     position: sticky;
     left: 0;
+    font-weight: 600;
 }
 
 tbody td {
@@ -171,11 +181,57 @@ tbody td {
     font-weight: 100;
 }
 
-thead th,
-tbody th {
-    background-color: #f1f1f1;
+thead th {
+    color: rgb(237, 237, 237);
+    background-color: #111315;
+    border-top-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 0px;
 }
 
+thead th:first-child{
+    color: rgb(237, 237, 237);
+    background-color: #111315;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+thead th:last-child{
+    color: rgb(237, 237, 237);
+    background-color: #111315;
+    border-top-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 0px;
+}
+
+tbody th {
+    color: rgb(237, 237, 237);
+    background-color: #111315;
+    border-top-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+tbody tr:last-child th {
+    color: rgb(237, 237, 237);
+    background-color: #111315;
+    border-top-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 10px;
+}
+
+tbody tr:last-child td {
+    color: rgb(237, 237, 237);
+    border-top-left-radius: 0px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 00px;
+}
 #root {
     width: 100%;
 }
