@@ -8,7 +8,7 @@ import {Login} from './login';
 export const backEndUrl = "https://hd.hegelty.space";
 export const App: React.FC = () => {
     const [loggedIn, setLogin] = useState(false)
-    const [userName, setUserName] = useState("박찬웅")
+    const [userName, setUserName] = useState("")
 
     function temp() {
         if (loggedIn)

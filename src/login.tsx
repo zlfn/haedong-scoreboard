@@ -122,7 +122,13 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
             if (loggedIn)
                 setLoggedIn(false)
             else
-                setLoggedIn(true)
+            {
+                login().then(success=>{
+                    if(!success)
+                        setUserName("<<VIRTUAL>>")
+                        setLoggedIn(true)
+                })
+            }
         }}>가상 로그인 토글
         </button>
         <button onClick={() => {
