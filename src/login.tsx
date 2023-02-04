@@ -81,8 +81,12 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
                     return
                 })
         }
-        //존재하지 않으면 자동 로그인 시도
-        else login()
+        //존재하지 않으면 세션으로 자동 로그인 시도
+        else {
+            setLoadingModalOpened(true)
+            login()
+            setLoadingModalOpened(false)
+        }
     }, [userName])
 
     return <>
@@ -171,9 +175,14 @@ const LoginModal: React.FC<LoginModalProps> = ({setWorking, login, closeModal, f
         },{withCredentials:true})
             .then(response => {
                 if (response.data.success) {
-                    setWorking(false)
                     if(!login())
+                    {
                         failCallback()
+                        return
+                    }
+                    setWorking(false)
+                    setLoadingModalOpened(false)
+                    closeModal()
                     return
                 } else {
                     setWorking(false)
@@ -195,6 +204,14 @@ const LoginModal: React.FC<LoginModalProps> = ({setWorking, login, closeModal, f
         setNumber(e.target.value)
     }
 
+    function submitButton() {
+        if(4>= name.length && name.length >= 2 && number.length === 4)
+            return <button onClick={register}>Submit</button>
+        else
+            return <button
+                className="modal-btn-inactive">Submit</button>
+    }
+
     return (
         <>
             <div className="signin">
@@ -206,11 +223,11 @@ const LoginModal: React.FC<LoginModalProps> = ({setWorking, login, closeModal, f
                 <br></br>
                 <div className="modal-input">
                     <input onChange={numberChange} maxLength={4} placeholder=" 학번"/>
-                    <input onChange={nameChange} maxLength={3} placeholder=" 이름"/>
+                    <input onChange={nameChange} maxLength={4} placeholder=" 이름"/>
                 </div>
                 <br/><br/>
                 <div className="modal-btn">
-                    <button onClick={register}>Submit</button>
+                    {submitButton()}
                     <button onClick={closeModal}>Cancel</button>
                 </div>
                 
@@ -232,7 +249,7 @@ const LoginFailModal: React.FC<ModalProps> = ({closeModal}) => {
         <>
             <div className="modalfail">
                 <h3>로그인에 실패했습니다.</h3>
-                <button onClick={closeModal}>닫기</button>
+                <button onClick={closeModal}>Close</button>
             </div>
             
         </>
