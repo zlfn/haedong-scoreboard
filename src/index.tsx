@@ -60,35 +60,35 @@ const Temp: React.FC = () => {
                     <tbody>
                     <tr>
                         <th>박찬웅</th>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greeenT">100점?</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greeenT">100?</b></td>
                     </tr>
                     <tr>
                         <th>나태양</th>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greeenT">100점?</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greeenT">100?</b></td>
                     </tr>
                     <tr>
                         <th>오레오</th>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">100점</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">100</b></td>
                     </tr>
                     <tr>
                         <th>윤석준</th>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
                         <td><b>-</b></td>
                         <td><b>-</b></td>
-                        <td><b className="yellowT">30점</b></td>
+                        <td><b className="yellowT">30</b></td>
                     </tr>
                     <tr>
                         <th>김지민</th>
@@ -96,7 +96,7 @@ const Temp: React.FC = () => {
                         <td><b>-</b></td>
                         <td><b>-</b></td>
                         <td><b>-</b></td>
-                        <td><b className="redT">0점</b></td>
+                        <td><b className="redT">0</b></td>
                     </tr>
                     </tbody>
                 </table>
@@ -127,64 +127,64 @@ const TempLogged: React.FC = () => {
                     <tbody>
                     <tr>
                         {/*로그인 해야 보임*/}
-                        <th>내 점수</th>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greeenT">1111100점</b></td>
+                        <th>You</th>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greeenT">1111100</b></td>
                     </tr>
                     <tr>
                         <th>박찬웅</th>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greeenT">1111100점</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greeenT">1111100</b></td>
                     </tr>
                     <tr>
                         <th>나태양</th>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
                         <td><b>-</b></td>
-                        <td><b className="greeenT">111100점</b></td>
+                        <td><b className="greeenT">111100</b></td>
                     </tr>
                     <tr>
                         <th>오레오</th>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
                         <td><b>-</b></td>
                         <td><b>-</b></td>
                         <td><b>-</b></td>
                         <td><b>-</b></td>
-                        <td><b className="greenT">100점</b></td>
+                        <td><b className="greenT">100</b></td>
                     </tr>
                     <tr>
                         <th>윤석준</th>
-                        <td><b className="greenT">맞았습니다!</b></td>
-                        <td><b className="greenT">맞았습니다!</b></td>
+                        <td><b className="greenT">pwned</b></td>
+                        <td><b className="greenT">pwned</b></td>
                         <td><b>-</b></td>
                         <td><b>-</b></td>
                         <td><b>-</b></td>
                         <td><b>-</b></td>
                         <td><b>-</b></td>
                         <td><b>-</b></td>
-                        <td><b className="yellowT">30점</b></td>
+                        <td><b className="yellowT">30</b></td>
                     </tr>
                     <tr>
                         <th>김지민</th>
@@ -196,7 +196,7 @@ const TempLogged: React.FC = () => {
                         <td><b>-</b></td>
                         <td><b>-</b></td>
                         <td><b>-</b></td>
-                        <td><b className="redT">0점</b></td>
+                        <td><b className="redT">0</b></td>
                     </tr>
                     </tbody>
                 </table>

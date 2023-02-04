@@ -146,6 +146,7 @@ th, td {
 }
 
 thead th {
+    margin-top: ;
     font-weight: 500;
     position: sticky;
     top: 0;
@@ -230,7 +231,7 @@ tbody tr:last-child td {
     border-top-left-radius: 0px;
     border-bottom-right-radius: 10px;
     border-top-right-radius: 0px;
-    border-bottom-left-radius: 00px;
+    border-bottom-left-radius: 0px;
 }
 #root {
     width: 100%;
