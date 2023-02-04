@@ -10,7 +10,7 @@ import axios from "axios";
 export const backEndUrl = "https://hd.hegelty.space";
 export const App: React.FC = () => {
     const [loggedIn, setLogin] = useState(false)
-    const [userName, setUserName] = useState("")
+    const [userName, setUserName] = useState("박찬웅")
 
     function temp() {
         if(loggedIn)
@@ -91,6 +91,14 @@ const Temp: React.FC = () => {
                         <td><b>-</b></td>
                         <td><b>-</b></td>
                         <td><b className="yellowT">30점</b></td>
+                    </tr>
+                    <tr>
+                        <th>김지민</th>
+                        <td><b>-</b></td>
+                        <td><b>-</b></td>
+                        <td><b>-</b></td>
+                        <td><b>-</b></td>
+                        <td><b className="redT">0점</b></td>
                     </tr>
                     </tbody>
                 </table>
@@ -179,6 +187,18 @@ const TempLogged: React.FC = () => {
                         <td><b>-</b></td>
                         <td><b>-</b></td>
                         <td><b className="yellowT">30점</b></td>
+                    </tr>
+                    <tr>
+                        <th>김지민</th>
+                        <td><b>-</b></td>
+                        <td><b>-</b></td>
+                        <td><b>-</b></td>
+                        <td><b>-</b></td>
+                        <td><b>-</b></td>
+                        <td><b>-</b></td>
+                        <td><b>-</b></td>
+                        <td><b>-</b></td>
+                        <td><b className="redT">0점</b></td>
                     </tr>
                     </tbody>
                 </table>
