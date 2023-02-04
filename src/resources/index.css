@@ -48,6 +48,10 @@ body {
     display: flex;
     flex-direction: row;
     vertical-align: center;
+    position: fixed;
+    bottom: 100px;
+    width: 100%;
+
 }
 
 #input{
