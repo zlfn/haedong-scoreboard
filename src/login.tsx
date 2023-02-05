@@ -196,7 +196,7 @@ const LoginModal: React.FC<LoginModalProps> = ({login, closeModal, failCallback}
     }
 
     const nameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const result = e.target.value.replace(/[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g, '');
+        const result = e.target.value.replace(/[^ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z]/g, '');
         setName(result)
     }
     const numberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -205,11 +205,21 @@ const LoginModal: React.FC<LoginModalProps> = ({login, closeModal, failCallback}
     }
 
     function submitButton() {
-        if (4 >= name.length && name.length >= 2 && number.length === 4)
+        if (4 >= name.length && name.length >= 2 && number.length === 4 && !/[a-zA-Z]/.test(name))
             return <button onClick={register}>Submit</button>
         else
             return <button
                 className="modal-btn-inactive">Submit</button>
+    }
+
+    function cautionText() {
+        if ((4 < name.length || name.length <= 2) && number.length !== 4)
+            return <p className="redT">⚠ 학번은 4자리 숫자여야 합니다.<br/>⚠ 이름은 2자리 - 4자리의 한글이어야 합니다.</p>
+        if (4 < name.length || name.length < 2 || /[a-zA-Z]/.test(name))
+            return <p className="redT">⚠ 이름은 2자리 - 4자리의 한글이어야 합니다.</p>
+        if (number.length !== 4)
+            return <p className="redT">⚠ 학번은 4자리 숫자여야 합니다.</p>
+        return <p></p>
     }
 
     return (
@@ -225,7 +235,8 @@ const LoginModal: React.FC<LoginModalProps> = ({login, closeModal, failCallback}
                     <input value={number} onChange={numberChange} maxLength={4} placeholder=" 학번"/>
                     <input value={name} onChange={nameChange} maxLength={4} placeholder=" 이름"/>
                 </div>
-                <br/><br/>
+                {cautionText()}
+
                 <div className="modal-btn">
                     {submitButton()}
                     <button onClick={closeModal}>Cancel</button>

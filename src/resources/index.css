@@ -233,3 +233,23 @@ tbody tr:last-child td {
 #root {
     width: 100%;
 }
+
+.greenT {
+    color: lightgreen;
+    font-weight: 400;
+}
+
+.yellowT {
+    color: lightyellow;
+    font-weight: 400;
+}
+
+.redT {
+    color: lightcoral;
+    font-weight: 400;
+}
+
+.greeenT {
+    color: springgreen;
+    font-weight: 400;
+}
