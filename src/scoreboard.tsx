@@ -25,7 +25,7 @@ export const Scoreboard: FC<ScoreboardProps> = (login, solved) => {
                 if (res.success) {
                     if (login)
                         setOobal(res.oobal)
-                    const temp:userData[] = []
+                    const temp: userData[] = []
                     res.data.forEach((e: userData) => {
                         temp.push(e)
                     })
@@ -40,9 +40,9 @@ export const Scoreboard: FC<ScoreboardProps> = (login, solved) => {
     }
 
     /* 컴포넌트 마운트 / 로그인 / 문제 솔브 시마다 스코어 보드 갱신*/
-    useEffect(()=>{
+    useEffect(() => {
         fetchData()
-        const ID = setInterval(fetchData,10000)
+        const ID = setInterval(fetchData, 10000)
         return () => {
             clearInterval(ID)
         }
@@ -60,37 +60,30 @@ type TableProps = {
     oobal: boolean
 }
 const TableHead: FC<TableProps> = ({oobal}) => {
+    const temp = []
+    temp.push(<>
+        <th>test1</th>
+        <th>test2</th>
+        <th>test3</th>
+        <th>test4</th>
+    </>)
     if (oobal) {
-        return <>
-            <thead>
-            <tr>
-                <th className="pin"></th>
-                <th>1</th>
-                <th>2</th>
-                <th>3</th>
-                <th>4</th>
-                <th>PLUS A</th>
-                <th>PLUS B</th>
-                <th>PLUS C</th>
-                <th>PLUS D</th>
-                <th>SCORE</th>
-            </tr>
-            </thead>
-        </>
-    } else {
-        return <>
-            <thead>
-            <tr>
-                <th className="pin"></th>
-                <th>1</th>
-                <th>2</th>
-                <th>3</th>
-                <th>4</th>
-                <th>SCORE</th>
-            </tr>
-            </thead>
-        </>
+        temp.push(<>
+            <th>oobal1</th>
+            <th>oobal2</th>
+            <th>oobal3</th>
+            <th>-</th>
+        </>)
     }
+    return <>
+        <thead>
+        <tr>
+            <th className="pin">플래그</th>
+            {temp}
+            <th>SCORE</th>
+        </tr>
+        </thead>
+    </>
 }
 
 interface ElementProps extends TableProps {
@@ -105,26 +98,25 @@ const TableElement: FC<ElementProps> = ({user, oobal}) => {
 
     for (let i = 0; i < index; i++) {
         if (user.solved[i]) {
-            temp.push(<td key={user.student_id*10+i}><b className="greenT">pwned</b></td>)
+            temp.push(<td key={user.student_id * 10 + i}><b className="greenT">pwned</b></td>)
         } else {
-            temp.push(<td key={user.student_id*10+i}><b>-</b></td>)
+            temp.push(<td key={user.student_id * 10 + i}><b>-</b></td>)
         }
     }
 
     let color = ""
     let score = user.score.toString()
     if (user.score > 100) {
-        color="greeenT"
-        if(!oobal)
-            score="100?"
-    }
-    else if (user.score === 100)
-        color="greenT"
+        color = "greeenT"
+        if (!oobal)
+            score = "100?"
+    } else if (user.score === 100)
+        color = "greenT"
     else if (user.score > 0)
-        color="yellowT"
+        color = "yellowT"
     else
-        color="redT"
-    temp.push(<td key={user.student_id*10+9}><b className={color}>{score}</b></td>)
+        color = "redT"
+    temp.push(<td key={user.student_id * 10 + 9}><b className={color}>{score}</b></td>)
 
     return <>
         <tr>
