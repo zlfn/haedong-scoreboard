@@ -238,9 +238,9 @@ const LoginModal: React.FC<LoginModalProps> = ({login, closeModal, failCallback}
 
     return (
         <>
-            <div className="signin">
+            <div className="signIn">
 
-                <div id="messege">
+                <div id="message">
                     <h3>처음 로그인하셨군요.</h3><h3>이름과 학번을 입력하세요.</h3>
                 </div>
                 <hr className="bar"></hr>
