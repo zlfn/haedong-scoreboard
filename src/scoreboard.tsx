@@ -14,7 +14,7 @@ type userData = {
     score: number
 }
 
-export const Scoreboard: FC<ScoreboardProps> = (login, solved) => {
+export const Scoreboard: FC<ScoreboardProps> = ({login, solved}) => {
     const [oobal, setOobal] = useState(false)
     const [data, setData] = useState(new Array<userData>())
 
@@ -25,6 +25,8 @@ export const Scoreboard: FC<ScoreboardProps> = (login, solved) => {
                 if (res.success) {
                     if (login)
                         setOobal(res.oobal)
+                    else
+                        setOobal(false)
                     const temp: userData[] = []
                     res.data.forEach((e: userData) => {
                         temp.push(e)
