@@ -61,24 +61,16 @@ type TableProps = {
 }
 const TableHead: FC<TableProps> = ({oobal}) => {
     const temp = []
-    temp.push(<>
-        <th>test1</th>
-        <th>test2</th>
-        <th>test3</th>
-        <th>test4</th>
-    </>)
+    for(let i = 0; i < 4; i++)
+        temp.push(<th key={i}>test{i+1}</th>)
     if (oobal) {
-        temp.push(<>
-            <th>oobal1</th>
-            <th>oobal2</th>
-            <th>oobal3</th>
-            <th>-</th>
-        </>)
+        for(let i = 0; i < 4; i++)
+            temp.push(<th key={i+4}>oobal{i+1}</th>)
     }
     return <>
         <thead>
         <tr>
-            <th className="pin">플래그</th>
+            <th className="pin"></th>
             {temp}
             <th>SCORE</th>
         </tr>
@@ -98,7 +90,7 @@ const TableElement: FC<ElementProps> = ({user, oobal}) => {
 
     for (let i = 0; i < index; i++) {
         if (user.solved[i]) {
-            temp.push(<td key={user.student_id * 10 + i}><b className="greenT">pwned</b></td>)
+            temp.push(<td key={user.student_id * 10 + i}><b className="greenT">Pwned</b></td>)
         } else {
             temp.push(<td key={user.student_id * 10 + i}><b>-</b></td>)
         }
