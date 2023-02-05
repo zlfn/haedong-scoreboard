@@ -22,7 +22,7 @@ body {
     display: flex;
     position: fixed;
     top: 0;
-    z-index: 10000;
+    z-index: 99;
     align-items: center;
     flex-direction: row;
     vertical-align: center;

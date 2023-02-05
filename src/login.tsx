@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Modal from "react-modal";
 import axios from 'axios'
 import {backEndUrl} from "./index";
@@ -10,10 +10,9 @@ ReactModal.setAppElement('#root');
 type LoginProps = {
     loggedIn: boolean;
     setLoggedIn: (value: boolean) => void;
-    userName: string;
-    setUserName: (value: string) => void;
 }
-export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn, userName}) => {
+export const Login: React.FC<LoginProps> = ({setLoggedIn, loggedIn}) => {
+    const [userName, setUserName] = useState("")
     const [failModalOpened, setFailModalOpened] = useState(false)
     const [loginModalOpened, setLoginModalOpened] = useState(false)
     const [loadingModalOpened, setLoadingModalOpened] = useState(false)
@@ -132,8 +131,8 @@ export const Login: React.FC<LoginProps> = ({setUserName, setLoggedIn, loggedIn,
         }}>로그인 토글
         </button>
         <button onClick={() => {
-            setLoggedIn(false)
             axios.post(backEndUrl + '/login/delete', {}, {withCredentials: true})
+                .then(()=>{setLoggedIn(false)})
         }}>
             탈퇴하기
         </button>
@@ -171,7 +170,13 @@ const LoginModal: React.FC<LoginModalProps> = ({login, closeModal, failCallback}
     const [name, setName] = useState("")
     const [number, setNumber] = useState("")
 
+    const nameRef = useRef<HTMLInputElement|null>(null)
+    const numberRef = useRef<HTMLInputElement|null>(null)
+
     function register() {
+        if (4 < name.length || name.length < 2 || number.length !== 4 || /[ㄱ-ㅎㅏ-ㅣa-zA-Z]/.test(name))
+            return
+
         setLoadingModalOpened(true)
         axios.defaults.withCredentials = true;
         axios.post(backEndUrl + "/login/register", {
@@ -204,6 +209,15 @@ const LoginModal: React.FC<LoginModalProps> = ({login, closeModal, failCallback}
         setNumber(result);
     }
 
+    const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, loc: number) => {
+        if(e.key==='Enter') {
+            if(loc === 0)
+                nameRef.current!.focus()
+            if(loc === 1)
+                register()
+        }
+    }
+
     function submitButton() {
         if (4 >= name.length && name.length >= 2 && number.length === 4 && !/[ㄱ-ㅎㅏ-ㅣa-zA-Z]/.test(name))
             return <button onClick={register}>Submit</button>
@@ -232,8 +246,21 @@ const LoginModal: React.FC<LoginModalProps> = ({login, closeModal, failCallback}
                 <hr className="bar"></hr>
                 <br></br>
                 <div className="modal-input">
-                    <input value={number} onChange={numberChange} maxLength={4} placeholder=" 학번"/>
-                    <input value={name} onChange={nameChange} maxLength={4} placeholder=" 이름"/>
+                    <input
+                        onKeyDown={(e)=>{onKeyDown(e, 0)}}
+                        value={number} ref={numberRef}
+                        onChange={numberChange}
+                        maxLength={4}
+                        placeholder=" 학번"
+                    />
+                    <input
+                        onKeyDown={(e)=>{onKeyDown(e, 1)}}
+                        value={name}
+                        ref={nameRef}
+                        onChange={nameChange}
+                        maxLength={4}
+                        placeholder=" 이름"
+                    />
                 </div>
                 {cautionText()}
 

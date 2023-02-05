@@ -4,31 +4,39 @@ import './resources/index.css';
 import "./resources/modal.css"
 import "./resources/custom.css"
 import {Login} from './login';
+import {Scoreboard} from "./scoreboard";
+import {FlagSubmit} from "./submit";
 
 export const backEndUrl = "https://hd.hegelty.space";
 export const App: React.FC = () => {
-    const [loggedIn, setLogin] = useState(false)
-    const [userName, setUserName] = useState("")
+    //로그인 여부
+    const [login, setLogin] = useState(false)
+    //이번에 푼 문제 개수, 스코어 보드의 갱신을 위해 제출 후 맞을 때 마다 1 증가
+    const [solved, setSolved] = useState(0)
 
-    function temp() {
-        if (loggedIn)
-            return <TempLogged/>
-        else
-            return <Temp/>
-    }
+    function addSolved() {setSolved(solved+1)}
 
     return (
         <>
             <div className="top">
                 <img src="/logo.png" alt="Logo" id="logo"/>
                 <Login
-                    loggedIn={loggedIn}
-                    userName={userName}
+                    loggedIn={login}
                     setLoggedIn={setLogin}
-                    setUserName={setUserName}
                 />
             </div>
-            {temp()}
+            <div className="middle">
+                <Scoreboard
+                    login={login}
+                    solved={solved}
+                />
+            </div>
+            <div className="flag">
+                <FlagSubmit
+                    login={login}
+                    addSolved={addSolved}
+                />
+            </div>
         </>
     )
 }
@@ -37,174 +45,5 @@ export const App: React.FC = () => {
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
+
 root.render(<App/>);
-
-
-//모양 만들기용 임시 컴포넌트. 개발하면서 조각조각 쪼갤거임.
-const Temp: React.FC = () => {
-    return (
-        <>
-            <div className="middle">
-                <table>
-                    <thead>
-                    <tr>
-                        <th className="pin"></th>
-                        <th>1</th>
-                        <th>2</th>
-                        <th>3</th>
-                        <th>4</th>
-                        <th>SCORE</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    <tr>
-                        <th>박찬웅</th>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greeenT">100?</b></td>
-                    </tr>
-                    <tr>
-                        <th>나태양</th>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greeenT">100?</b></td>
-                    </tr>
-                    <tr>
-                        <th>오레오</th>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">100</b></td>
-                    </tr>
-                    <tr>
-                        <th>윤석준</th>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b>-</b></td>
-                        <td><b>-</b></td>
-                        <td><b className="yellowT">30</b></td>
-                    </tr>
-                    <tr>
-                        <th>김지민</th>
-                        <td><b>-</b></td>
-                        <td><b>-</b></td>
-                        <td><b>-</b></td>
-                        <td><b>-</b></td>
-                        <td><b className="redT">0</b></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </>
-    )
-}
-const TempLogged: React.FC = () => {
-    return (
-        <>
-            <div className="middle">
-                <table>
-                    <thead>
-                    <tr>
-                        <th className="pin"></th>
-                        <th>1</th>
-                        <th>2</th>
-                        <th>3</th>
-                        <th>4</th>
-                        <th>PLUS A</th>
-                        <th>PLUS B</th>
-                        <th>PLUS C</th>
-                        <th>PLUS D</th>
-                        <th>SCORE</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    <tr>
-                        {/*로그인 해야 보임*/}
-                        <th>You</th>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greeenT">1111100</b></td>
-                    </tr>
-                    <tr>
-                        <th>박찬웅</th>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greeenT">1111100</b></td>
-                    </tr>
-                    <tr>
-                        <th>나태양</th>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b>-</b></td>
-                        <td><b className="greeenT">111100</b></td>
-                    </tr>
-                    <tr>
-                        <th>오레오</th>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b>-</b></td>
-                        <td><b>-</b></td>
-                        <td><b>-</b></td>
-                        <td><b>-</b></td>
-                        <td><b className="greenT">100</b></td>
-                    </tr>
-                    <tr>
-                        <th>윤석준</th>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b className="greenT">pwned</b></td>
-                        <td><b>-</b></td>
-                        <td><b>-</b></td>
-                        <td><b>-</b></td>
-                        <td><b>-</b></td>
-                        <td><b>-</b></td>
-                        <td><b>-</b></td>
-                        <td><b className="yellowT">30</b></td>
-                    </tr>
-                    <tr>
-                        <th>김지민</th>
-                        <td><b>-</b></td>
-                        <td><b>-</b></td>
-                        <td><b>-</b></td>
-                        <td><b>-</b></td>
-                        <td><b>-</b></td>
-                        <td><b>-</b></td>
-                        <td><b>-</b></td>
-                        <td><b>-</b></td>
-                        <td><b className="redT">0</b></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div className="flag">
-                <input type="text" name="text" id="input" placeholder="Wanna type something?"/>
-                <input type="submit" name="submit" id="submit" value="Enter.."/>
-            </div>
-        </>
-    )
-}
