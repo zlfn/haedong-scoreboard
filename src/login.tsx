@@ -231,12 +231,26 @@ const LoginModal: React.FC<LoginModalProps> = ({login, closeModal, failCallback}
     }
 
     function cautionText() {
-        if ((4 < name.length || name.length <= 2) && number.length !== 4)
-            return <p className="redT">⚠ 학번은 4자리 숫자여야 합니다.<br/>⚠ 이름은 2자리 - 4자리의 완성된 한글이어야 합니다.</p>
-        if (4 < name.length || name.length < 2 || /[ㄱ-ㅎㅏ-ㅣa-zA-Z]/.test(name))
-            return <p className="redT">⚠ 이름은 2자리 - 4자리의 완성된 한글이어야 합니다.</p>
-        if (number.length !== 4)
-            return <p className="redT">⚠ 학번은 4자리 숫자여야 합니다.</p>
+        const warnName = document.getElementById('warnName')
+        //   ) as HTMLParagraphElement | null;
+        const warnNo = document.getElementById('warnNo')
+        warnName?.classList.add('invis')
+        warnNo?.classList.add('invis')
+        if ((4 < name.length || name.length <= 2) && number.length !== 4){
+            warnName?.classList.remove('invis')
+            warnNo?.classList.remove('invis')
+            // return <p className="redT">⚠ 학번은 4자리 숫자여야 합니다.<br/>⚠ 이름은 2자리 - 4자리의 완성된 한글이어야 합니다.</p>
+        }
+        if (4 < name.length || name.length < 2 || /[ㄱ-ㅎㅏ-ㅣa-zA-Z]/.test(name)){
+            warnName?.classList.remove('invis')
+            warnNo?.classList.add('invis')
+            // return <p className="redT">⚠ 이름은 2자리 - 4자리의 완성된 한글이어야 합니다.</p>
+        }
+        if (number.length !== 4){
+            warnName?.classList.remove('vis')
+            warnNo?.classList.remove('invis')
+            // return <p className="redT">⚠ 학번은 4자리 숫자여야 합니다.</p>
+        }
         return <p></p>
     }
 
@@ -250,25 +264,32 @@ const LoginModal: React.FC<LoginModalProps> = ({login, closeModal, failCallback}
                 <hr className="bar"></hr>
                 <br></br>
                 <div className="modal-input">
-                    <input
-                        onKeyDown={(e) => {
-                            onKeyDown(e, 0)
-                        }}
-                        value={number} ref={numberRef}
-                        onChange={numberChange}
-                        maxLength={4}
-                        placeholder=" 학번"
-                    />
-                    <input
-                        onKeyDown={(e) => {
-                            onKeyDown(e, 1)
-                        }}
-                        value={name}
-                        ref={nameRef}
-                        onChange={nameChange}
-                        maxLength={4}
-                        placeholder=" 이름"
-                    />
+                    <div className="stuNo">
+                        <input
+                            onKeyDown={(e) => {
+                                onKeyDown(e, 0)
+                            }}
+                            value={number} ref={numberRef}
+                            onChange={numberChange}
+                            maxLength={4}
+                            placeholder=" 학번"
+                        />
+                        <p id="warnNo" className="redT schar">⚠ 학번은 4자리 숫자여야 합니다.</p>
+                    </div>
+                    
+                    <div className="stuName">
+                        <input
+                            onKeyDown={(e) => {
+                                onKeyDown(e, 1)
+                            }}
+                            value={name}
+                            ref={nameRef}
+                            onChange={nameChange}
+                            maxLength={4}
+                            placeholder=" 이름"
+                        />
+                        <p id="warnName" className="redT schar">⚠ 이름은 2-4자의 완성된 한글이어야 합니다.</p>
+                    </div>
                 </div>
                 {cautionText()}
 

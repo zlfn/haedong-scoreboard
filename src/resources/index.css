@@ -260,3 +260,10 @@ tbody tr:last-child td {
     color: springgreen;
     font-weight: 400;
 }
+
+.schar {
+    font-size: 13px;
+}
+.invis {
+    display: none;
+}
