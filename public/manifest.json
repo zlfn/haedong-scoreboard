@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "해동 스코어보드",
+  "name": "경기북과학고 정보보안 동아리 해동의 CTF 실습을 위한 스코어보드",
   "icons": [
     {
       "src": "favicon.ico",

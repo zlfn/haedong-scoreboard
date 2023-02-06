@@ -31,6 +31,7 @@
   "scripts": {
     "start": "run-script-os",
     "start:nix": "export PORT=8080 && react-scripts start",
+    "start:macos": "export PORT=8080 && react-scripts start",
     "start:windows": "set PORT=8080 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
