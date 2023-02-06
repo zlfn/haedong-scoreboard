@@ -144,7 +144,7 @@ export const Login: React.FC<LoginProps> = ({setLoggedIn, loggedIn}) => {
 
 const LoginButton: React.FC = () => {
     const oauthEndPoint = "https://gbs.wiki/oauth2/login?"
-    const oauthClientID = "test"
+    const oauthClientID = "hd-flag"
     const oauthRedirectUri = "http://localhost:8080"
     const oauthScope = "id"
     const oauthLoginUri = oauthEndPoint + new URLSearchParams({
