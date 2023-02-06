@@ -262,6 +262,7 @@ tbody tr:last-child td {
 }
 
 .schar {
+    margin-top: 7px;
     font-size: 13px;
 }
 .invis {

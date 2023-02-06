@@ -219,6 +219,7 @@ const LoginModal: React.FC<LoginModalProps> = ({login, closeModal, failCallback}
             if (loc === 0)
                 nameRef.current!.focus()
             if (loc === 1)
+                nameRef.current!.blur()
                 register()
         }
     }
@@ -230,44 +231,23 @@ const LoginModal: React.FC<LoginModalProps> = ({login, closeModal, failCallback}
             return <button
                 className="modal-btn-inactive">Submit</button>
     }
-    // function isInputFocused() {
-    //     const inputName = document.getElementById('nameInput')
-    //     const inputNo = document.getElementById('numInput')
-    //     var activething = document.activeElement
-    //     if (inputName === activething || inputNo === activething){
-    //         return true
-    //     }
-    //     else {
-    //         return false
-    //     }
 
-    // }
-    function cautionText() {
-        const warnName = document.getElementById('warnName')
-        //   ) as HTMLParagraphElement | null;
+    function updateCaution() {
         const warnNo = document.getElementById('warnNo')
-        // if (!isInputFocused()){
-        warnName?.classList.add('invis')
-        warnNo?.classList.add('invis')
-        if ((4 < name.length || name.length <= 2) && number.length !== 4){
-            warnName?.classList.remove('invis')
+        if (number.length !== 4 && document.activeElement !== numberRef.current! && number.length !== 0)
             warnNo?.classList.remove('invis')
-            // return <p className="redT">⚠ 학번은 4자리 숫자여야 합니다.<br/>⚠ 이름은 2자리 - 4자리의 완성된 한글이어야 합니다.</p>
-        }
-        if (4 < name.length || name.length < 2 || /[ㄱ-ㅎㅏ-ㅣa-zA-Z]/.test(name)){
-            warnName?.classList.remove('invis')
+        else
             warnNo?.classList.add('invis')
-            // return <p className="redT">⚠ 이름은 2자리 - 4자리의 완성된 한글이어야 합니다.</p>
-        }
-        if (number.length !== 4){
-            warnName?.classList.remove('vis')
-            warnNo?.classList.remove('invis')
-            // return <p className="redT">⚠ 학번은 4자리 숫자여야 합니다.</p>
-        }
-        return <p></p>
-        // }
-        
+
+        const warnName = document.getElementById('warnName')
+        if ((4 < name.length || name.length < 2 || /[ㄱ-ㅎㅏ-ㅣa-zA-Z]/.test(name)) && document.activeElement !== nameRef.current! && name.length !== 0)
+            warnName?.classList.remove('invis')
+        else
+            warnName?.classList.add('invis')
     }
+    /* 이름, 학번 업데이트마다 주의문구 갱신*/
+    useEffect(updateCaution, [name, number])
+
 
     return (
         <>
@@ -285,12 +265,13 @@ const LoginModal: React.FC<LoginModalProps> = ({login, closeModal, failCallback}
                             onKeyDown={(e) => {
                                 onKeyDown(e, 0)
                             }}
+                            onBlur={updateCaution}
                             value={number} ref={numberRef}
                             onChange={numberChange}
                             maxLength={4}
                             placeholder=" 학번"
                         />
-                        <p id="warnNo" className="redT schar">⚠ 학번은 4자리 숫자여야 합니다.</p>
+                        <p id="warnNo" className="redT schar invis">&nbsp;학번은 4자리 숫자여야 합니다.</p>
                     </div>
                     
                     <div className="stuName">
@@ -299,16 +280,16 @@ const LoginModal: React.FC<LoginModalProps> = ({login, closeModal, failCallback}
                             onKeyDown={(e) => {
                                 onKeyDown(e, 1)
                             }}
+                            onBlur={updateCaution}
                             value={name}
                             ref={nameRef}
                             onChange={nameChange}
                             maxLength={4}
                             placeholder=" 이름"
                         />
-                        <p id="warnName" className="redT schar">⚠ 이름은 2-4자의 완성된 한글이어야 합니다.</p>
+                        <p id="warnName" className="redT schar invis">&nbsp;이름은 2-4자의 완성된 한글이어야 합니다.</p>
                     </div>
                 </div>
-                {cautionText()}
 
                 <div className="modal-btn">
                     {submitButton()}
