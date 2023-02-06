@@ -4,6 +4,7 @@ import ReactModal from "react-modal";
 import axios from 'axios'
 import {backEndUrl} from "./index";
 import ReactLoading from "react-loading";
+import { getActiveElement } from "@testing-library/user-event/dist/utils";
 
 ReactModal.setAppElement('#root');
 
@@ -229,11 +230,23 @@ const LoginModal: React.FC<LoginModalProps> = ({login, closeModal, failCallback}
             return <button
                 className="modal-btn-inactive">Submit</button>
     }
+    // function isInputFocused() {
+    //     const inputName = document.getElementById('nameInput')
+    //     const inputNo = document.getElementById('numInput')
+    //     var activething = document.activeElement
+    //     if (inputName === activething || inputNo === activething){
+    //         return true
+    //     }
+    //     else {
+    //         return false
+    //     }
 
+    // }
     function cautionText() {
         const warnName = document.getElementById('warnName')
         //   ) as HTMLParagraphElement | null;
         const warnNo = document.getElementById('warnNo')
+        // if (!isInputFocused()){
         warnName?.classList.add('invis')
         warnNo?.classList.add('invis')
         if ((4 < name.length || name.length <= 2) && number.length !== 4){
@@ -252,6 +265,8 @@ const LoginModal: React.FC<LoginModalProps> = ({login, closeModal, failCallback}
             // return <p className="redT">⚠ 학번은 4자리 숫자여야 합니다.</p>
         }
         return <p></p>
+        // }
+        
     }
 
     return (
@@ -266,6 +281,7 @@ const LoginModal: React.FC<LoginModalProps> = ({login, closeModal, failCallback}
                 <div className="modal-input">
                     <div className="stuNo">
                         <input
+                            id="numInput"
                             onKeyDown={(e) => {
                                 onKeyDown(e, 0)
                             }}
@@ -279,6 +295,7 @@ const LoginModal: React.FC<LoginModalProps> = ({login, closeModal, failCallback}
                     
                     <div className="stuName">
                         <input
+                            id="nameInput"
                             onKeyDown={(e) => {
                                 onKeyDown(e, 1)
                             }}
