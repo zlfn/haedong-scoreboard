@@ -109,11 +109,18 @@ body {
     margin-top: 180px;
     margin-left: 50px;
     margin-right: 50px;
-    flex-direction: row;
+    flex-direction: column;
     padding-bottom: 35%;
     overflow-x: scroll;
     height: 50%;
-    
+}
+
+.notice {
+    margin-top: 10px;
+    margin-bottom: 13px;
+    display: flex;
+    flex-direction: column;
+
 }
 
 table {
@@ -276,4 +283,14 @@ tbody tr:last-child td {
 
 .noOutline {
     outline: none;
+}
+
+.graynotice {
+    margin-bottom: 0;
+    line-height: 0;
+    margin-top: 0;
+    color: #b1b1b1;
+    font-size: 13px;
+    font-family: 'GothamPro', 'Apple SD Gothic Neo', 'Pretendard', 'Segoe UI', Sans-Serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 }
