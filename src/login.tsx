@@ -4,15 +4,15 @@ import ReactModal from "react-modal";
 import axios from 'axios'
 import {backEndUrl} from "./index";
 import ReactLoading from "react-loading";
-import { getActiveElement } from "@testing-library/user-event/dist/utils";
 
 ReactModal.setAppElement('#root');
 
 type LoginProps = {
     loggedIn: boolean;
     setLoggedIn: (value: boolean) => void;
+    setID: (value: number) => void;
 }
-export const Login: React.FC<LoginProps> = ({setLoggedIn, loggedIn}) => {
+export const Login: React.FC<LoginProps> = ({setID, setLoggedIn, loggedIn}) => {
     const [userName, setUserName] = useState("")
     const [failModalOpened, setFailModalOpened] = useState(false)
     const [loginModalOpened, setLoginModalOpened] = useState(false)
@@ -24,6 +24,7 @@ export const Login: React.FC<LoginProps> = ({setLoggedIn, loggedIn}) => {
                 const res = response.data
                 if (res.success) {
                     setUserName(res.name)
+                    setID(res.student_id)
                     setLoggedIn(true)
                     return true
                 } else
@@ -220,7 +221,7 @@ const LoginModal: React.FC<LoginModalProps> = ({login, closeModal, failCallback}
                 nameRef.current!.focus()
             if (loc === 1)
                 nameRef.current!.blur()
-                register()
+            register()
         }
     }
 
@@ -245,6 +246,7 @@ const LoginModal: React.FC<LoginModalProps> = ({login, closeModal, failCallback}
         else
             warnName?.classList.add('invis')
     }
+
     /* 이름, 학번 업데이트마다 주의문구 갱신*/
     useEffect(updateCaution, [name, number])
 
@@ -273,7 +275,7 @@ const LoginModal: React.FC<LoginModalProps> = ({login, closeModal, failCallback}
                         />
                         <p id="warnNo" className="redT schar invis">&nbsp;학번은 4자리 숫자여야 합니다.</p>
                     </div>
-                    
+
                     <div className="stuName">
                         <input
                             id="nameInput"

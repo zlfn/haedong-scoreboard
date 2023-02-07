@@ -4,6 +4,7 @@ import {backEndUrl} from "./index";
 
 type ScoreboardProps = {
     login: boolean
+    id: number
     solved: number
 }
 
@@ -14,7 +15,7 @@ type userData = {
     score: number
 }
 
-export const Scoreboard: FC<ScoreboardProps> = ({login, solved}) => {
+export const Scoreboard: FC<ScoreboardProps> = ({id, login, solved}) => {
     const [oobal, setOobal] = useState(false)
     const [data, setData] = useState(new Array<userData>())
 
@@ -53,7 +54,7 @@ export const Scoreboard: FC<ScoreboardProps> = ({login, solved}) => {
     return <>
         <table>
             <TableHead oobal={oobal}/>
-            <TableBody oobal={oobal} data={data}/>
+            <TableBody login={login} student_id={id} oobal={oobal} data={data}/>
         </table>
     </>
 }
@@ -63,11 +64,11 @@ type TableProps = {
 }
 const TableHead: FC<TableProps> = ({oobal}) => {
     const temp = []
-    for(let i = 0; i < 4; i++)
-        temp.push(<th key={i}>test{i+1}</th>)
+    for (let i = 0; i < 4; i++)
+        temp.push(<th key={i}>test{i + 1}</th>)
     if (oobal) {
-        for(let i = 0; i < 4; i++)
-            temp.push(<th key={i+4}>oobal{i+1}</th>)
+        for (let i = 0; i < 4; i++)
+            temp.push(<th key={i + 4}>oobal{i + 1}</th>)
     }
     return <>
         <thead>
@@ -81,10 +82,11 @@ const TableHead: FC<TableProps> = ({oobal}) => {
 }
 
 interface ElementProps extends TableProps {
+    me: boolean
     user: userData
 }
 
-const TableElement: FC<ElementProps> = ({user, oobal}) => {
+const TableElement: FC<ElementProps> = ({me, user, oobal}) => {
     const temp = []
     let index = 4
     if (oobal)
@@ -114,23 +116,30 @@ const TableElement: FC<ElementProps> = ({user, oobal}) => {
 
     return <>
         <tr>
-            <th>{user.name}</th>
+            <th>{me ? "You" : user.name}</th>
             {temp}
         </tr>
     </>
 }
 
 interface BodyProps extends TableProps {
+    login: boolean
+    student_id: number
     data: Array<userData>
 }
 
-const TableBody: FC<BodyProps> = ({data, oobal}) => {
+const TableBody: FC<BodyProps> = ({login, student_id, data, oobal}) => {
+    const me: JSX.Element[] = []
     const temp: JSX.Element[] = []
     data.forEach((e) => {
-        temp.push(<TableElement key={e.student_id} oobal={oobal} user={e}/>)
+        temp.push(<TableElement me={false} key={e.student_id} oobal={oobal} user={e}/>)
+        if (student_id === e.student_id && login) {
+            me.push(<TableElement me={true} key={e.student_id} oobal={oobal} user={e}/>)
+        }
     })
     return <>
         <tbody>
+        {me}
         {temp}
         </tbody>
     </>
