@@ -268,3 +268,12 @@ tbody tr:last-child td {
 .invis {
     display: none;
 }
+
+.redBorder {
+    background-color: #432f2f !important;
+    outline: 2px solid rgb(170, 85, 85) !important;
+}
+
+.noOutline {
+    outline: none;
+}

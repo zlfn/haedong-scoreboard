@@ -235,16 +235,25 @@ const LoginModal: React.FC<LoginModalProps> = ({login, closeModal, failCallback}
 
     function updateCaution() {
         const warnNo = document.getElementById('warnNo')
-        if (number.length !== 4 && document.activeElement !== numberRef.current! && number.length !== 0)
+        const inputNo = document.getElementById('numInput')
+        if (number.length !== 4 && document.activeElement !== numberRef.current! && number.length !== 0){
             warnNo?.classList.remove('invis')
-        else
+            inputNo?.classList.add('redBorder')
+        }
+        else{
             warnNo?.classList.add('invis')
-
+            inputNo?.classList.remove('redBorder')
+        }
         const warnName = document.getElementById('warnName')
-        if ((4 < name.length || name.length < 2 || /[ㄱ-ㅎㅏ-ㅣa-zA-Z]/.test(name)) && document.activeElement !== nameRef.current! && name.length !== 0)
+        const inputName = document.getElementById('nameInput')
+        if ((4 < name.length || name.length < 2 || /[ㄱ-ㅎㅏ-ㅣa-zA-Z]/.test(name)) && document.activeElement !== nameRef.current! && name.length !== 0){
             warnName?.classList.remove('invis')
-        else
+            inputName?.classList.add('redBorder')
+        }
+        else{
             warnName?.classList.add('invis')
+            inputName?.classList.remove('redBorder')
+        }
     }
 
     /* 이름, 학번 업데이트마다 주의문구 갱신*/
