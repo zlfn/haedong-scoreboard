@@ -34,8 +34,8 @@ export const App: React.FC = () => {
             </div>
             <div className="middle">
                 <div className='notice'>
-                    <p className="graynotice">* 이 웹사이트는 Chrome 최신 버전에 최적화되어 있습니다.</p><br></br>
-                    <p className="graynotice">* Safari 등의 브라우저는 로그인 기능이 동작하지 않을 수 있습니다. "크로스 사이트 추적 방지" 설정을 꺼주세요.</p>
+                    <span className="graynotice">* 이 웹사이트는 Firefox와 Chrome 최신 버전에 최적화되어 있습니다.<br/>
+                        * Safari 등의 브라우저는 로그인 기능이 동작하지 않을 수 있습니다. "크로스 사이트 추적 방지" 설정을 꺼주세요.</span>
                 </div>
                 <Scoreboard
                     id={id}

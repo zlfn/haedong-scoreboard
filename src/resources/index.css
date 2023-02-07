@@ -106,7 +106,7 @@ body {
     display: flex;
     position: fixed;
     width: 95%;
-    margin-top: 180px;
+    margin-top: 140px;
     margin-left: 50px;
     margin-right: 50px;
     flex-direction: column;
@@ -116,8 +116,7 @@ body {
 }
 
 .notice {
-    margin-top: 10px;
-    margin-bottom: 13px;
+    margin-bottom: 5px;
     display: flex;
     flex-direction: column;
 
@@ -133,6 +132,7 @@ table {
     border: 0;
     height: 10%;
     width: 98%;
+    margin-top:2px;
     box-shadow:
         10px 10px 20px #1e1e1e;
 }
@@ -286,9 +286,8 @@ tbody tr:last-child td {
 }
 
 .graynotice {
-    margin-bottom: 0;
-    line-height: 0;
-    margin-top: 0;
+    margin-top:5px;
+    margin-bottom:0px;
     color: #b1b1b1;
     font-size: 13px;
     font-family: 'GothamPro', 'Apple SD Gothic Neo', 'Pretendard', 'Segoe UI', Sans-Serif,
