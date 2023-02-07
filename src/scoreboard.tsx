@@ -55,9 +55,6 @@ export const Scoreboard: FC<ScoreboardProps> = ({id, login, solved}) => {
         <table>
             <TableHead oobal={oobal}/>
             <TableBody login={login} student_id={id} oobal={oobal} data={data}/>
-            <TableBody login={login} student_id={id} oobal={oobal} data={data}/>
-            <TableBody login={login} student_id={id} oobal={oobal} data={data}/>
-            <TableBody login={login} student_id={id} oobal={oobal} data={data}/>
         </table>
     </>
 }
