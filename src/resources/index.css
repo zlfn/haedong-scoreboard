@@ -176,7 +176,7 @@ th, td {
 thead th {
     font-weight: 500;
     position: sticky;
-    top: 0;
+    top: 5px;
     border-top: 0;
     background-clip: padding-box;
 }
