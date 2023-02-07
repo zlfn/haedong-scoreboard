@@ -13,8 +13,12 @@ export const App: React.FC = () => {
     const [login, setLogin] = useState(false)
     //이번에 푼 문제 개수, 스코어 보드의 갱신을 위해 제출 후 맞을 때 마다 1 증가
     const [solved, setSolved] = useState(0)
+    //학번
+    const [id, setID] = useState(0)
 
-    function addSolved() {setSolved(solved+1)}
+    function addSolved() {
+        setSolved(solved + 1)
+    }
 
     return (
         <>
@@ -23,10 +27,12 @@ export const App: React.FC = () => {
                 <Login
                     loggedIn={login}
                     setLoggedIn={setLogin}
+                    setID={setID}
                 />
             </div>
             <div className="middle">
                 <Scoreboard
+                    id={id}
                     login={login}
                     solved={solved}
                 />
