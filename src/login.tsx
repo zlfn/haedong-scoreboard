@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import Modal from "react-modal";
 import ReactModal from "react-modal";
 import axios from 'axios'
-import {backEndUrl} from "./index";
+import {backEndUrl, ModalProps} from "./index";
 import ReactLoading from "react-loading";
 
 ReactModal.setAppElement('#root');
@@ -159,9 +159,6 @@ const LoginButton: React.FC = () => {
     )
 }
 
-type ModalProps = {
-    closeModal: () => void
-}
 
 interface LoginModalProps extends ModalProps {
     login: () => Promise<boolean>

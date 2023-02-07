@@ -6,6 +6,7 @@ import "./resources/custom.css"
 import {Login} from './login';
 import {Scoreboard} from "./scoreboard";
 import {FlagSubmit} from "./submit";
+import Modal from "react-modal";
 
 export const backEndUrl = "https://hd.hegelty.space";
 export const App: React.FC = () => {
@@ -15,6 +16,7 @@ export const App: React.FC = () => {
     const [solved, setSolved] = useState(0)
     //학번
     const [id, setID] = useState(0)
+    const [creditModalOpened, setCreditModalOpened] = useState(false)
 
     function addSolved() {
         setSolved(solved + 1)
@@ -23,7 +25,7 @@ export const App: React.FC = () => {
     return (
         <>
             <div className="top">
-                <img src="/logo.png" alt="Logo" id="logo"/>
+                <img src="/logo.png" alt="Logo" id="logo" onClick={()=>setCreditModalOpened(true)}/>
                 <Login
                     loggedIn={login}
                     setLoggedIn={setLogin}
@@ -43,6 +45,14 @@ export const App: React.FC = () => {
                     addSolved={addSolved}
                 />
             </div>
+
+            <Modal
+                isOpen={creditModalOpened}
+                overlayClassName="Modal_Overlay"
+                onRequestClose={()=>setCreditModalOpened(false)}
+                className="Modal_Loading">
+                <CreditModal closeModal={()=>setCreditModalOpened(false)}/>
+            </Modal>
         </>
     )
 }
@@ -53,3 +63,16 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(<App/>);
+
+
+export type ModalProps = {
+    closeModal: () => void
+}
+const CreditModal: React.FC<ModalProps> = ({closeModal}) => {
+    return (
+        <>
+            <h1>여기 크레딧</h1>
+            <button onClick={closeModal}>Close</button>
+        </>
+    )
+}
