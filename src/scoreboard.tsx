@@ -73,7 +73,8 @@ const TableHead: FC<TableProps> = ({oobal}) => {
     return <>
         <thead>
         <tr>
-            <th className="pin"></th>
+            <th className="pin">등수</th>
+            <th>이름</th>
             {temp}
             <th>SCORE</th>
         </tr>
@@ -83,14 +84,16 @@ const TableHead: FC<TableProps> = ({oobal}) => {
 
 interface ElementProps extends TableProps {
     me: boolean
+    rank: number
     user: userData
 }
 
-const TableElement: FC<ElementProps> = ({me, user, oobal}) => {
+const TableElement: FC<ElementProps> = ({rank, me, user, oobal}) => {
     const temp = []
     let index = 4
     if (oobal)
         index = 8
+
 
     for (let i = 0; i < index; i++) {
         if (user.solved[i]) {
@@ -99,6 +102,7 @@ const TableElement: FC<ElementProps> = ({me, user, oobal}) => {
             temp.push(<td key={user.student_id * 10 + i}><b>-</b></td>)
         }
     }
+
 
     let color = ""
     let score = user.score.toString()
@@ -116,6 +120,7 @@ const TableElement: FC<ElementProps> = ({me, user, oobal}) => {
 
     return <>
         <tr>
+            {me ? <th>-</th> : <th key={user.student_id * 10 + 8}><b>{rank}</b></th>}
             <th>{me ? "You" : user.name}</th>
             {temp}
         </tr>
@@ -131,12 +136,12 @@ interface BodyProps extends TableProps {
 const TableBody: FC<BodyProps> = ({login, student_id, data, oobal}) => {
     const me: JSX.Element[] = []
     const temp: JSX.Element[] = []
-    data.forEach((e) => {
-        temp.push(<TableElement me={false} key={e.student_id} oobal={oobal} user={e}/>)
+    for(const[rank, e] of data.entries()) {
+        temp.push(<TableElement rank={rank+1} me={false} key={e.student_id} oobal={oobal} user={e}/>)
         if (student_id === e.student_id && login) {
-            me.push(<TableElement me={true} key={e.student_id} oobal={oobal} user={e}/>)
+            me.push(<TableElement rank={0} me={true} key={e.student_id} oobal={oobal} user={e}/>)
         }
-    })
+    }
     return <>
         <tbody>
         {me}
