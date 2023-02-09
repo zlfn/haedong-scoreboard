@@ -75,8 +75,7 @@ body {
     background-color: #4f4f4f;
     flex: auto;
     color: white;
-    box-shadow:
-            4px 4px 10px #1e1e1e;
+    box-shadow: 4px 4px 10px #1e1e1e;
 }
 
 #input::placeholder {
@@ -97,9 +96,8 @@ body {
     border-radius: 10px;
     outline: none;
     width: 80px;
-    
-    box-shadow:
-            4px 4px 20px #4b4b4b;
+
+    box-shadow: 4px 4px 20px #4b4b4b;
 }
 
 .middle {
@@ -131,9 +129,8 @@ table {
     border: 0;
     height: 10%;
     width: 98%;
-    margin-top:2px;
-    box-shadow:
-        10px 10px 20px #1e1e1e;
+    margin-top: 2px;
+    box-shadow: 10px 10px 20px #1e1e1e;
 }
 
 th,
@@ -143,9 +140,8 @@ td {
     /* scroll-snap-align: start; */
 }
 
-
 thead tr th:last-child,
-thead tr td:last-child{
+thead tr td:last-child {
     border-right: 0;
 }
 
@@ -161,7 +157,6 @@ tbody tr td:last-child {
 tbody tr td:first-child {
     border-right: 1;
 }
-
 
 
 thead {
@@ -191,6 +186,7 @@ thead th.pin {
     z-index: 11;
     border-left: 0;
 }
+
 thead th.namepin {
     width: 100px;
     left: 0;
@@ -284,6 +280,7 @@ tbody tr:last-child td {
     margin-top: 7px;
     font-size: 13px;
 }
+
 .invis {
     display: none;
 }
@@ -298,15 +295,15 @@ tbody tr:last-child td {
 }
 
 .graynotice {
-    margin-top:5px;
-    margin-bottom:0px;
+    margin-top: 5px;
+    margin-bottom: 0px;
     color: #b1b1b1;
     font-size: 13px;
     font-family: 'GothamPro', 'Apple SD Gothic Neo', 'Pretendard', 'Segoe UI', Sans-Serif,
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 }
 
-.seokjoon-sibalseki{
+.seokjoon-sibalseki {
     font-family: 'GothamPro', 'Apple SD Gothic Neo', 'Pretendard', 'Segoe UI', Sans-Serif,
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
     height: 30px;
@@ -317,6 +314,5 @@ tbody tr:last-child td {
     width: 120px;
     margin-right: 10px;
 
-    box-shadow:
-        5px 5px 20px #303030;
+    box-shadow: 5px 5px 20px #303030;
 }
