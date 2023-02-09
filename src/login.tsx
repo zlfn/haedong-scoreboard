@@ -116,10 +116,10 @@ export const Login: React.FC<LoginProps> = ({setID, setLoggedIn, loggedIn}) => {
             className="Modal_Loading">
             <LoadingModal/>
         </Modal>
-        <button onClick={() => setLoginModalOpened(true)}>정보 입력 창 열기</button>
-        <button onClick={() => setLoadingModalOpened(true)}>로딩 창 열기</button>
-        <button onClick={() => setFailModalOpened(true)}>실패 창 열기</button>
-        <button onClick={() => {
+        <button className="seokjoon-sibalseki" onClick={() => setLoginModalOpened(true)}>정보 입력 창 열기</button>
+        <button className="seokjoon-sibalseki" onClick={() => setLoadingModalOpened(true)}>로딩 창 열기</button>
+        <button className="seokjoon-sibalseki" onClick={() => setFailModalOpened(true)}>실패 창 열기</button>
+        <button className="seokjoon-sibalseki" onClick={() => {
             if (loggedIn)
                 setLoggedIn(false)
             else {
@@ -131,7 +131,7 @@ export const Login: React.FC<LoginProps> = ({setID, setLoggedIn, loggedIn}) => {
             }
         }}>로그인 토글
         </button>
-        <button onClick={() => {
+        <button className="seokjoon-sibalseki" onClick={() => {
             axios.post(backEndUrl + '/login/delete', {}, {withCredentials: true})
                 .then(() => {
                     setLoggedIn(false)
