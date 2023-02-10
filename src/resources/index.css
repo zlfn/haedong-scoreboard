@@ -103,9 +103,9 @@ body {
 .middle {
     display: flex;
     position: fixed;
-    width: calc(100% - 108px);
+    width: calc((100vw - 8px) * 0.92);
     margin-top: 140px;
-    margin-left: 50px;
+    margin-left: calc((100vw - 8px) * 0.04);
     flex-direction: column;
     padding-bottom: 35%;
     overflow-x: scroll;
@@ -138,6 +138,7 @@ td {
     border: 0.5px solid #8b8b8b;
     background-clip: padding-box;
     /* scroll-snap-align: start; */
+    min-width: 48px;
 }
 
 thead tr th:last-child,
