@@ -71,9 +71,11 @@ interface SubmitModalProps extends ModalProps {
 const SubmitModal: React.FC<SubmitModalProps> = ({message, closeModal}) => {
     return (
         <>
-            <h1>맞았습니다!</h1>
-            <p>{message}</p>
-            <button onClick={closeModal}>Close</button>
+            <div className="submitmodal">
+                <h1>Problem Pwned :</h1>
+                <p className='submitmodal_msg'>{message}</p>
+                <button className="submitmodal_btn modal-btn" onClick={closeModal}>Close</button>
+            </div>
         </>
     )
 }
