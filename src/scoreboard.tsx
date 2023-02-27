@@ -74,7 +74,7 @@ const TableHead: FC<TableProps> = ({oobal}) => {
         <thead>
         <tr>
             <th className="pin">등수</th>
-            <th>이름</th>
+            <th className='namepin'>이름</th>
             {temp}
             <th>SCORE</th>
         </tr>

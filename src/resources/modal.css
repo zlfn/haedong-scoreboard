@@ -65,6 +65,26 @@
     justify-content: center;
     align-items: center;
 }
+.Modal_Credit{
+    position: absolute;
+    z-index: 101;
+    top: 30%;
+    left: 30%;
+    right: 30%;
+    bottom: 30%;
+    /* border: 1px solid #ccc; */
+    background: #1a1d1f;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 20px;
+    outline: none;
+    padding: 20px;
+
+    display: flex;
+
+    align-items: flex-start;
+    /* justify-content: center; */
+}
 
 .signIn {
     display: flex;
@@ -83,6 +103,15 @@
     margin-bottom: 10px;
 }
 
+#message2 {
+    font-family: 'GothamPro', 'Pretendard', 'GothamPro', 'Segoe UI', Sans-Serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    color: #dfdfdf;
+    font-size: 35px;
+    line-height: 9px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
 .bar {
     width: 94%;
     margin: -10px 50px -10px 0px;
@@ -142,7 +171,6 @@
     position: absolute;
     bottom: 40px;
     right: 30px;
-
 }
 
 .modal-btn button {
@@ -193,3 +221,30 @@
     position: absolute;
 }
   
+#credit{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-left: 30px;
+}
+
+#creditMember{
+    margin-left: 10px;
+    font-family: 'GothamPro', 'Apple SD Gothic Neo', 'Pretendard', 'Segoe UI', Sans-Serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    color:#fff;
+    font-size: 20px;
+    font-weight: 600;
+}
+.creditbtn {
+    font-family: 'GothamPro', 'Apple SD Gothic Neo', 'Pretendard', 'Segoe UI', Sans-Serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    border: 0;
+    font-weight: 600;
+    border-radius: 10px;
+    outline: none;
+    width: 30px;
+    margin-right: 10px;
+
+    box-shadow: 5px 5px 20px #303030;
+}

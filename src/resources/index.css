@@ -75,8 +75,7 @@ body {
     background-color: #4f4f4f;
     flex: auto;
     color: white;
-    box-shadow:
-            4px 4px 10px #1e1e1e;
+    box-shadow: 4px 4px 10px #1e1e1e;
 }
 
 #input::placeholder {
@@ -97,18 +96,16 @@ body {
     border-radius: 10px;
     outline: none;
     width: 80px;
-    
-    box-shadow:
-            4px 4px 20px #4b4b4b;
+
+    box-shadow: 4px 4px 20px #4b4b4b;
 }
 
 .middle {
     display: flex;
     position: fixed;
-    width: 95%;
+    width: calc((100vw - 8px) * 0.92);
     margin-top: 140px;
-    margin-left: 50px;
-    margin-right: 50px;
+    margin-left: calc((100vw - 8px) * 0.04);
     flex-direction: column;
     padding-bottom: 35%;
     overflow-x: scroll;
@@ -132,9 +129,8 @@ table {
     border: 0;
     height: 10%;
     width: 98%;
-    margin-top:2px;
-    box-shadow:
-        10px 10px 20px #1e1e1e;
+    margin-top: 2px;
+    box-shadow: 10px 10px 20px #1e1e1e;
 }
 
 th,
@@ -142,22 +138,27 @@ td {
     border: 0.5px solid #8b8b8b;
     background-clip: padding-box;
     /* scroll-snap-align: start; */
+    min-width: 48px;
+}
+
+thead tr th:last-child,
+thead tr td:last-child {
+    border-right: 0;
 }
 
 tbody tr:last-child th,
 tbody tr:last-child td {
     border-bottom: 0;
-    border-right: 0;
 }
 
 tbody tr td:last-child {
     border-right: 0;
 }
 
-thead tr:last-child th,
-thaed tr:last-child td {
-    border-right: 0;
+tbody tr td:first-child {
+    border-right: 1;
 }
+
 
 thead {
     z-index: 10;
@@ -166,7 +167,6 @@ thead {
 
 th, td {
     padding: 0.6rem;
-    min-width: 6rem;
     text-align: left;
     margin: 0;
     background-color: rgba(48, 48, 48, 0.404);
@@ -182,6 +182,14 @@ thead th {
 }
 
 thead th.pin {
+    width: 50px;
+    left: 0;
+    z-index: 11;
+    border-left: 0;
+}
+
+thead th.namepin {
+    width: 100px;
     left: 0;
     z-index: 11;
     border-left: 0;
@@ -216,6 +224,7 @@ thead th {
 }
 
 thead th:first-child {
+    border: 1;
     color: rgb(237, 237, 237);
     background-color: #111315;
     border-radius: 10px 0 0 0;
@@ -272,6 +281,7 @@ tbody tr:last-child td {
     margin-top: 7px;
     font-size: 13px;
 }
+
 .invis {
     display: none;
 }
@@ -286,10 +296,24 @@ tbody tr:last-child td {
 }
 
 .graynotice {
-    margin-top:5px;
-    margin-bottom:0px;
+    margin-top: 5px;
+    margin-bottom: 0px;
     color: #b1b1b1;
     font-size: 13px;
     font-family: 'GothamPro', 'Apple SD Gothic Neo', 'Pretendard', 'Segoe UI', Sans-Serif,
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+.seokjoon-sibalseki {
+    font-family: 'GothamPro', 'Apple SD Gothic Neo', 'Pretendard', 'Segoe UI', Sans-Serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    height: 30px;
+    border: 0;
+    font-weight: 600;
+    border-radius: 10px;
+    outline: none;
+    width: 120px;
+    margin-right: 10px;
+
+    box-shadow: 5px 5px 20px #303030;
 }
