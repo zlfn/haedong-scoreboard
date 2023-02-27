@@ -117,7 +117,6 @@ export const Login: React.FC<LoginProps> = ({setID, setLoggedIn, loggedIn}) => {
             <LoadingModal/>
         </Modal>
 
-        //TODO: 디버그용 코드
         <button className="seokjoon-sibalseki" onClick={() => setLoginModalOpened(true)}>정보 입력 창 열기</button>
         <button className="seokjoon-sibalseki" onClick={() => setLoadingModalOpened(true)}>로딩 창 열기</button>
         <button className="seokjoon-sibalseki" onClick={() => setFailModalOpened(true)}>실패 창 열기</button>
