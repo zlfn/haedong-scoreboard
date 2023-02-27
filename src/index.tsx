@@ -75,8 +75,13 @@ export type ModalProps = {
 const CreditModal: React.FC<ModalProps> = ({closeModal}) => {
     return (
         <>
-            <h1>여기 크레딧</h1>
-            <button onClick={closeModal}>Close</button>
+            <div id="credit">
+                <div id="message2">
+                    <p>Credit</p>
+                </div>
+                <button onClick={closeModal}>Close</button>
+            </div>
+            
         </>
     )
 }

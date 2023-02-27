@@ -83,6 +83,15 @@
     margin-bottom: 10px;
 }
 
+#message2 {
+    font-family: 'GothamPro', 'Pretendard', 'GothamPro', 'Segoe UI', Sans-Serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    color: #dfdfdf;
+    font-size: 35px;
+    line-height: 9px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
 .bar {
     width: 94%;
     margin: -10px 50px -10px 0px;
@@ -193,3 +202,10 @@
     position: absolute;
 }
   
+#credit{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    vertical-align: center;
+    margin-left: 30px;
+}
