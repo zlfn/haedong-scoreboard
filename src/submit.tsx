@@ -51,6 +51,7 @@ export const FlagSubmit: FC<FlagSubmitProps> = ({addSolved, login}) => {
                 <Modal
                     isOpen={submitModalOpened}
                     overlayClassName="Modal_Overlay"
+                    onRequestClose={() => setSubmitModalOpened(false)}
                     className="Modal_Content">
                     <SubmitModal
                         message = {submitMessage}
