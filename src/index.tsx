@@ -54,7 +54,7 @@ export const App: React.FC = () => {
                 isOpen={creditModalOpened}
                 overlayClassName="Modal_Overlay"
                 onRequestClose={()=>setCreditModalOpened(false)}
-                className="Modal_Loading">
+                className="Modal_Credit">
                 <CreditModal closeModal={()=>setCreditModalOpened(false)}/>
             </Modal>
         </>
@@ -79,7 +79,13 @@ const CreditModal: React.FC<ModalProps> = ({closeModal}) => {
                 <div id="message2">
                     <p>Credit</p>
                 </div>
-                <button onClick={closeModal}>Close</button>
+                <div id="creditMember">
+                    <p>Frontend | 박찬웅 최용혁</p>
+                    <p>Web Publishing | 최용혁 김서호</p>
+                    <p>Backend | 나태양</p>
+                    <p>Problems | 김서호 신희찬</p>
+                </div>
+                <button className="modal-btn seokjoon-sibalseki" onClick={closeModal}>Close</button>
             </div>
             
         </>
