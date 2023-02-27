@@ -226,7 +226,7 @@
     align-items: flex-start;
     flex-direction: column;
     margin-left: 30px;
-
+    width: 100%;
 }
 
 #creditMember{
@@ -236,6 +236,9 @@
     color:#fff;
     font-size: 20px;
     font-weight: 600;
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
 }
 .creditbtn {
     font-family: 'GothamPro', 'Apple SD Gothic Neo', 'Pretendard', 'Segoe UI', Sans-Serif,
