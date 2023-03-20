@@ -117,29 +117,7 @@ export const Login: React.FC<LoginProps> = ({setID, setLoggedIn, loggedIn}) => {
             <LoadingModal/>
         </Modal>
 
-        <button className="seokjoon-sibalseki" onClick={() => setLoginModalOpened(true)}>정보 입력 창 열기</button>
-        <button className="seokjoon-sibalseki" onClick={() => setLoadingModalOpened(true)}>로딩 창 열기</button>
-        <button className="seokjoon-sibalseki" onClick={() => setFailModalOpened(true)}>실패 창 열기</button>
-        <button className="seokjoon-sibalseki" onClick={() => {
-            if (loggedIn)
-                setLoggedIn(false)
-            else {
-                login().then(success => {
-                    if (!success)
-                        setUserName("<<VIRTUAL>>")
-                    setLoggedIn(true)
-                })
-            }
-        }}>로그인 토글
-        </button>
-        <button className="seokjoon-sibalseki" onClick={() => {
-            axios.post(backEndUrl + '/login/delete', {}, {withCredentials: true})
-                .then(() => {
-                    setLoggedIn(false)
-                })
-        }}>
-            탈퇴하기
-        </button>
+
         <Button/>
     </>
 }

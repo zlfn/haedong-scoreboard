@@ -14,12 +14,10 @@ export const FlagSubmit: FC<FlagSubmitProps> = ({addSolved, login}) => {
 
 
     function submitFlag() {
-        //TODO: 디버그용 코드
-        if(flag==="debug") {
-            setSubmitModalOpened(true)
-            setSubmitMessage("디버그 메시지입니다.")
+        if(flag === 'haedong') {
+            window.location.href = "http://zlfn.space:12345"
+            return
         }
-
         axios.post(backEndUrl + '/submit/', {
             flag: flag
         }, {withCredentials:true})
