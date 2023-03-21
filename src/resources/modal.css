@@ -257,6 +257,9 @@
 }
 .submitmodal_msg{
     width: calc(100% - 30px);
+    color:#fff;
+    font-size: 17px;
+    word-break: break-all;
 
 }
 
