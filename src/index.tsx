@@ -80,10 +80,18 @@ const CreditModal: React.FC<ModalProps> = ({closeModal}) => {
                     <p>Credit</p>
                 </div>
                 <div id="creditMember">
-                    <p>Frontend | 박찬웅 최용혁</p>
-                    <p>Web Publishing | 최용혁 김서호</p>
-                    <p>Backend | 나태양</p>
-                    <p>Problems | 김서호 신희찬</p>
+                    <div>
+                        <p>Frontend</p>
+                        <p>Web Publishing</p>
+                        <p>Backend</p>
+                        <p>Problems</p>
+                    </div>
+                    <div>
+                        <p>| 박찬웅 최용혁</p>
+                        <p>| 최용혁 김서호</p>
+                        <p>| 나태양</p>
+                        <p>| 김서호 신희찬</p>
+                    </div>
                 </div>
                 <button className="modal-btn seokjoon-sibalseki" onClick={closeModal}>Close</button>
             </div>

@@ -68,10 +68,10 @@
 .Modal_Credit{
     position: absolute;
     z-index: 101;
-    top: 30%;
+    top: 28%;
     left: 30%;
     right: 30%;
-    bottom: 30%;
+    bottom: 28%;
     /* border: 1px solid #ccc; */
     background: #1a1d1f;
     overflow: auto;
@@ -226,7 +226,7 @@
     align-items: flex-start;
     flex-direction: column;
     margin-left: 30px;
-
+    width: 100%;
 }
 
 #creditMember{
@@ -236,6 +236,9 @@
     color:#fff;
     font-size: 20px;
     font-weight: 600;
+    width: 320px;
+    display: flex;
+    justify-content: space-between;
 }
 .creditbtn {
     font-family: 'GothamPro', 'Apple SD Gothic Neo', 'Pretendard', 'Segoe UI', Sans-Serif,
